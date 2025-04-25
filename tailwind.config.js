@@ -10,6 +10,13 @@ module.exports = {
     extend: {
       colors: {
         main: "#7575FE",
+        lightGrey: {
+          100: "#F9F9F9",
+          200: "#F0F0F0",
+        },
+      },
+      screens: {
+        xs: "250px",
       },
     },
   },

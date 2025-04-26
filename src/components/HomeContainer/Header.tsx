@@ -19,7 +19,7 @@ const Header = () => {
 
       <div className="flex flex-col gap-8 pt-4 w-full sm:w-1/2">
         <div className="flex flex-col items-center xl:items-start gap-2 xl:gap-6 h-1/2">
-          <h1 className="text-[16px] sm:text-[28px] xl:text-[40px] font-[700] xl:max-w-[335px] text-center xl:text-start sm:text-nowrap xl:text-wrap">
+          <h1 className="text-[20px] xs:text-[24px] sm:text-[28px] xl:text-[40px] font-[700] xl:max-w-[335px] text-center xl:text-start sm:text-nowrap xl:text-wrap">
             خانه‌ای که می‌خوای، جایی که می‌خوای
           </h1>
           <div className="max-w-[385px]">

@@ -1,24 +1,21 @@
 import axios, {
-  AxiosResponse,
   AxiosError,
+  AxiosInstance,
+  AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
 
-const axiosInstance = axios.create({
+const axiosInstance: AxiosInstance = axios.create({
   baseURL: "https://delta-project.liara.run/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  timeout: 10000,
 });
 
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+  (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem("token");
-
-    if (token && config.headers?.set) {
+    if (token) {
       config.headers.set("Authorization", `Bearer ${token}`);
     }
-
     return config;
   },
   (error: AxiosError) => {
@@ -27,13 +24,15 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => response,
+  (response: AxiosResponse) => {
+    return response;
+  },
   (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
+    if (error.response) {
+      if (error.response.status === 401) {
+        console.log("یک مشکلی به وجود اومده و لطفا دوباره لاگین بکنید.");
+      }
     }
-
     return Promise.reject(error);
   }
 );

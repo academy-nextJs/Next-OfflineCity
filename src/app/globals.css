@@ -1,4 +1,37 @@
+
 :root {
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* fonts */
+@font-face {
+  font-family: "yekan";
+  src: url("/fonts/Yekan.ttf");
+}
+
+@font-face {
+  font-family: "iransansr";
+  src: url("/fonts/IRANSansX-Regular.ttf");
+}
+@font-face {
+  font-family: "iransansb";
+  src: url("/fonts/IRANSansX-Bold.ttf");
+}
+
+body {
+  font-family: "iransansr", sans-serif;
+}
+
+/* :root {
+
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -21,4 +54,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-}
+} */

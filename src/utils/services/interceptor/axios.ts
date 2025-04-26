@@ -4,7 +4,9 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { toast } from "react-toastify";
 
+// ساخت axios instance
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: "https://delta-project.liara.run/api",
   timeout: 10000,
@@ -29,10 +31,21 @@ axiosInstance.interceptors.response.use(
   },
   (error: AxiosError) => {
     if (error.response) {
-      if (error.response.status === 401) {
-        console.log("یک مشکلی به وجود اومده و لطفا دوباره لاگین بکنید.");
+      const status = error.response.status;
+
+      if (status === 401) {
+        toast.error("باید وارد حساب کاربریت بشی پس لاگین کن!");
+      } else if (status === 403) {
+        toast.error("دسترسی نداری!");
+      } else if (status === 404) {
+        toast.error("چیزی پیدا نکردم!");
+      } else {
+        toast.error("مشکلی پیش اومده. لطفاً دوباره امتحان کن.");
       }
+    } else {
+      toast.error("ارتباطم با سرور رو از دست دادم.");
     }
+
     return Promise.reject(error);
   }
 );

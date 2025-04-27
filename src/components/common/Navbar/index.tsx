@@ -46,7 +46,7 @@ export default function MyNavbar() {
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         <NavbarItem>
           <Button
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
             href="/"
           >
@@ -57,7 +57,7 @@ export default function MyNavbar() {
         <NavbarItem>
           <Button
             as={Link}
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             href="#"
           >
             مقالات
@@ -65,7 +65,7 @@ export default function MyNavbar() {
         </NavbarItem>
         <NavbarItem>
           <Button
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
             href="#"
           >
@@ -81,7 +81,7 @@ export default function MyNavbar() {
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           <Button
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
             href="#"
           >
@@ -90,7 +90,7 @@ export default function MyNavbar() {
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">
           <Button
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
             href="#"
           >

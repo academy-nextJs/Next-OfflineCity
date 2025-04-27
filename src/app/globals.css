@@ -15,6 +15,11 @@
 }
 
 @font-face {
+  font-family: "iranyekanx";
+  src: url("/fonts/IRANYekanX-Regular.ttf");
+}
+
+@font-face {
   font-family: "iransansr";
   src: url("/fonts/IRANSansX-Regular.ttf");
 }
@@ -24,10 +29,11 @@
 }
 
 body {
-  font-family: "iransansr", sans-serif;
+  font-family: "iranyekanx", "iransansr", sans-serif;
 }
 
 /* :root {
+
   --background: #ffffff;
   --foreground: #171717;
 }

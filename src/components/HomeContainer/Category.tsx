@@ -23,7 +23,7 @@ const Category =  () => {
             </div>
             </div>
         </div>
-        <div className='pt-10'> <ImageTextSlider /> </div>
+        <div className='pt-10'> <ImageTextSlider slidesPerView={3} /> </div>
     </div>
     
     </> 

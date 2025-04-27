@@ -11,6 +11,10 @@ type SlideItem = {
     description:string;
 }
 
+type slidesPerViewProps = {
+  slidesPerView: number;
+}
+
 const slides: SlideItem[] = [
     {
         image: 'https://via.placeholder.com/300',
@@ -53,7 +57,7 @@ const slides: SlideItem[] = [
 
 
 
-const ImageTextSlider =   () => {
+const ImageTextSlider =   ({slidesPerView}:slidesPerViewProps) => {
     // const res = await fetch('https://delta-project.liara.run/api/houses?page=1&limit=10&sort=price&order=ASC')
     // const data = await res.json()
     // console.log(data ,'data')
@@ -61,7 +65,7 @@ const ImageTextSlider =   () => {
         <Swiper
           modules={[Navigation , Pagination ]}
           spaceBetween={30}
-          slidesPerView={3}
+          slidesPerView={slidesPerView}
           slidesPerGroup={2}
           slidesPerGroupSkip={1}
           navigation
@@ -71,7 +75,7 @@ const ImageTextSlider =   () => {
         >
             {slides.map((slide , index) => (
                 <SwiperSlide key={index}>
-                  <div style={{position : 'relative' , textAlign: 'center'  }}>
+                  <div style={{position : 'relative' , textAlign: 'center'  }} className="bg-red-300">
                    <img 
                     src={slide.image}
                     alt={slide.title}

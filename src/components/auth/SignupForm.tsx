@@ -10,10 +10,10 @@ export default function SignupForm() {
 
   const form = useForm({
     defaultValues: {
-      email: "",
-      password: "",
       fullName: "",
       phoneNumber: "",
+      email: "",
+      password: "",
     },
     onSubmit: async ({ value }) => {
       try {
@@ -25,7 +25,7 @@ export default function SignupForm() {
           role: "buyer",
         });
 
-        toast.success("ثبت‌ نام شدین!");
+        toast.success("ثبت‌ نام موفقیت‌آمیز بود!");
 
         router.push("/");
       } catch (error) {
@@ -36,67 +36,78 @@ export default function SignupForm() {
   });
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit();
-      }}
-      className="space-y-6"
-    >
+    <form onSubmit={form.handleSubmit} className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center font-yekan">
         ایجاد حساب کاربری
       </h2>
 
-      <div className="space-y-4">
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            نام کامل
-          </label>
-          <input
-            className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-            value={form.getFieldValue("fullName")}
-            onChange={(e) => form.setFieldValue("fullName", e.target.value)}
-            placeholder="نام کامل را وارد کنید"
-          />
-        </div>
+      <form.Field name="fullName">
+        {(field) => (
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              نام کامل
+            </label>
+            <input
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
+              placeholder="نام کامل را وارد کنید"
+              type="text"
+            />
+          </div>
+        )}
+      </form.Field>
 
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            شماره تلفن
-          </label>
-          <input
-            className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-            value={form.getFieldValue("phoneNumber")}
-            onChange={(e) => form.setFieldValue("phoneNumber", e.target.value)}
-            placeholder="شماره تلفن را وارد کنید"
-          />
-        </div>
+      <form.Field name="phoneNumber">
+        {(field) => (
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              شماره تلفن
+            </label>
+            <input
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
+              placeholder="مثلا 09123456789"
+              type="tel"
+            />
+          </div>
+        )}
+      </form.Field>
 
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            ایمیل
-          </label>
-          <input
-            className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-            value={form.getFieldValue("email")}
-            onChange={(e) => form.setFieldValue("email", e.target.value)}
-            placeholder="ایمیل را وارد کنید"
-          />
-        </div>
+      <form.Field name="email">
+        {(field) => (
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              ایمیل
+            </label>
+            <input
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
+              placeholder="ایمیل را وارد کنید"
+              type="email"
+            />
+          </div>
+        )}
+      </form.Field>
 
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            رمز عبور
-          </label>
-          <input
-            className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-            type="password"
-            value={form.getFieldValue("password")}
-            onChange={(e) => form.setFieldValue("password", e.target.value)}
-            placeholder="رمز عبور را وارد کنید"
-          />
-        </div>
-      </div>
+      <form.Field name="password">
+        {(field) => (
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              رمز عبور
+            </label>
+            <input
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
+              placeholder="رمز عبور را وارد کنید"
+              type="password"
+            />
+          </div>
+        )}
+      </form.Field>
 
       <button
         type="submit"

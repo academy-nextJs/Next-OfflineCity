@@ -20,54 +20,55 @@ export default function LoginForm() {
         const token = response.data.token;
         localStorage.setItem("token", token);
 
-        toast.success("با موفقیت وارد شدید!");
+        toast.success("ورود موفقیت آمیز بود!");
 
-        router.push("/"); //
+        router.push("/");
       } catch (error) {
         console.error(error);
-        toast.error("مشکلی در ورود پیش اومده. لطفاً دوباره تلاش کن.");
+        toast.error("مشکلی در ورود پیش امده. لطفاً دوباره تلاش کنید.");
       }
     },
   });
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit();
-      }}
-      className="space-y-6"
-    >
+    <form onSubmit={form.handleSubmit} className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center font-yekan">
         ورود به حساب کاربری
       </h2>
 
-      <div className="space-y-4">
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            ایمیل
-          </label>
-          <input
-            className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-            value={form.getFieldValue("email")}
-            onChange={(e) => form.setFieldValue("email", e.target.value)}
-            placeholder="ایمیل را وارد کنید"
-          />
-        </div>
+      <form.Field name="email">
+        {(field) => (
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              ایمیل
+            </label>
+            <input
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
+              placeholder="ایمیل را وارد کنید"
+              type="email"
+            />
+          </div>
+        )}
+      </form.Field>
 
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            رمز عبور
-          </label>
-          <input
-            className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-            type="password"
-            value={form.getFieldValue("password")}
-            onChange={(e) => form.setFieldValue("password", e.target.value)}
-            placeholder="رمز عبور را وارد کنید"
-          />
-        </div>
-      </div>
+      <form.Field name="password">
+        {(field) => (
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              رمز عبور
+            </label>
+            <input
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
+              placeholder="رمز عبور را وارد کنید"
+              type="password"
+            />
+          </div>
+        )}
+      </form.Field>
 
       <button
         type="submit"

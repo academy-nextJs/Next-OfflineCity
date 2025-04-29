@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "@/utils/services/interceptor/axios";
+import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 export default function VerifyCodePage() {
@@ -25,9 +26,15 @@ export default function VerifyCodePage() {
 
       toast.success("کد تایید شد!");
       router.push("/");
-    } catch (error: any) {
-      console.error(error.response?.data || error.message);
-      toast.error(error.response?.data?.message || "کد تایید اشتباه است.");
+    } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        const data = error.response?.data as { message?: string };
+        toast.error(data?.message || "کد تایید اشتباه است.");
+        console.error(error);
+      } else {
+        toast.error("مشکلی پیش آمد.");
+        console.error(error);
+      }
     }
   };
 
@@ -57,4 +64,8 @@ export default function VerifyCodePage() {
       </div>
     </div>
   );
+}
+
+function isAxiosError(error: unknown): error is AxiosError {
+  return typeof error === "object" && error !== null && "isAxiosError" in error;
 }

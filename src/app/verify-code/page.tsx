@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import axios from "@/utils/services/interceptor/axios";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 export default function VerifyCodePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email") || "";
+
   const [code, setCode] = useState("");
 
   const handleVerify = async (e: React.FormEvent) => {
@@ -19,7 +22,7 @@ export default function VerifyCodePage() {
     }
 
     try {
-      const response = await axios.post("/auth/verify", { code });
+      const response = await axios.post("/auth/verify", { code, email });
 
       const token = response.data.token;
       localStorage.setItem("token", token);
@@ -30,10 +33,8 @@ export default function VerifyCodePage() {
       if (isAxiosError(error)) {
         const data = error.response?.data as { message?: string };
         toast.error(data?.message || "کد تایید اشتباه است.");
-        console.error(error);
       } else {
         toast.error("مشکلی پیش آمد.");
-        console.error(error);
       }
     }
   };
@@ -42,7 +43,7 @@ export default function VerifyCodePage() {
     <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
       <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg">
         <h2 className="text-2xl font-bold mb-6 text-center font-yekan">
-          وارد کردن کد تایید
+          وارد کردن کد تایید برای {email}
         </h2>
 
         <form onSubmit={handleVerify} className="space-y-6">

@@ -4,6 +4,7 @@ import { useForm } from "@tanstack/react-form";
 import axios from "@/utils/services/interceptor/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 export default function SignupForm() {
   const router = useRouter();
@@ -25,34 +26,40 @@ export default function SignupForm() {
           role: "buyer",
         });
 
-        toast.success("ثبت‌ نام موفقیت‌آمیز بود!");
-
-        router.push("/");
-      } catch (error) {
-        console.error(error);
-        toast.error("مشکلی در ثبت‌ نام پیش اومده. لطفاً دوباره تلاش کن.");
+        toast.success("ثبت‌ نام با موفقیت انجام شد!");
+        router.push(`/verify-code?email=${value.email}`);
+      } catch (error: unknown) {
+        if (isAxiosError(error)) {
+          const data = error.response?.data as { message?: string };
+          toast.error(data?.message || "خطا در ثبت‌ نام.");
+        } else {
+          toast.error("خطایی پیش آمد.");
+        }
       }
     },
   });
 
   return (
-    <form onSubmit={form.handleSubmit} className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center font-yekan">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className="space-y-6"
+    >
+      <h2 className="text-2xl font-bold text-center mb-6 font-yekan">
         ایجاد حساب کاربری
       </h2>
 
       <form.Field name="fullName">
         {(field) => (
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              نام کامل
-            </label>
+            <label className="block mb-2">نام کامل</label>
             <input
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
-              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-              placeholder="نام کامل را وارد کنید"
-              type="text"
+              className="border p-3 rounded w-full"
+              placeholder="مثلا فرنام میانرودیان"
             />
           </div>
         )}
@@ -61,15 +68,12 @@ export default function SignupForm() {
       <form.Field name="phoneNumber">
         {(field) => (
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              شماره تلفن
-            </label>
+            <label className="block mb-2">شماره موبایل</label>
             <input
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
-              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-              placeholder="مثلا 09123456789"
-              type="tel"
+              className="border p-3 rounded w-full"
+              placeholder="09112862773 مثلا"
             />
           </div>
         )}
@@ -78,14 +82,12 @@ export default function SignupForm() {
       <form.Field name="email">
         {(field) => (
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              ایمیل
-            </label>
+            <label className="block mb-2">ایمیل</label>
             <input
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
-              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-              placeholder="ایمیل را وارد کنید"
+              className="border p-3 rounded w-full"
+              placeholder="مثلا your@email.com"
               type="email"
             />
           </div>
@@ -95,14 +97,11 @@ export default function SignupForm() {
       <form.Field name="password">
         {(field) => (
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              رمز عبور
-            </label>
+            <label className="block mb-2">رمز عبور</label>
             <input
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
-              className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-              placeholder="رمز عبور را وارد کنید"
+              className="border p-3 rounded w-full"
               type="password"
             />
           </div>
@@ -111,10 +110,14 @@ export default function SignupForm() {
 
       <button
         type="submit"
-        className="bg-primary hover:bg-primary-dark transition-all text-white p-3 rounded-lg w-full text-sm font-yekan"
+        className="bg-primary text-white w-full p-3 rounded"
       >
-        ثبت نام
+        ثبت‌نام
       </button>
     </form>
   );
+}
+
+function isAxiosError(error: unknown): error is AxiosError {
+  return typeof error === "object" && error !== null && "isAxiosError" in error;
 }

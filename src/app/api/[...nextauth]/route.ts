@@ -10,31 +10,66 @@ const handler = NextAuth({
         password: { label: "رمز عبور", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch(
-          "https://delta-project.liara.run/api/auth/login",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-            }),
+        try {
+          const res = await fetch(
+            "https://delta-project.liara.run/api/auth/login",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: credentials?.email,
+                password: credentials?.password,
+              }),
+            }
+          );
+
+          const rawText = await res.text();
+
+          try {
+            const data = JSON.parse(rawText);
+
+            if (!res.ok || !data || !data.token) {
+              console.error("Login failed (bad response):", data);
+              return null;
+            }
+
+            return {
+              id: data.id,
+              name: data.fullName,
+              email: data.email,
+              token: data.token,
+            };
+          } catch (jsonErr) {
+            console.error("Failed to parse JSON:", jsonErr);
+            console.error("Raw response text:", rawText);
+            return null;
           }
-        );
-
-        const user = await res.json();
-
-        if (!res.ok || !user) return null;
-
-        return user;
+        } catch (err) {
+          console.error("Network or server error:", err);
+          return null;
+        }
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-  },
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token.user) {
+        session.user = token.user;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
 });

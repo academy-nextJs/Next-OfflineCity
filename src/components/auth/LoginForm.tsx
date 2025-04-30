@@ -1,31 +1,27 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
-import axios from "@/utils/services/interceptor/axios";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 
 export default function LoginForm() {
-  const router = useRouter();
-
   const form = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
     onSubmit: async ({ value }) => {
-      try {
-        const response = await axios.post("/auth/login", value);
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: value.email,
+        password: value.password,
+      });
 
-        const token = response.data.token;
-        localStorage.setItem("token", token);
-
-        toast.success("ورود موفقیت آمیز بود!");
-
-        router.push("/");
-      } catch (error) {
-        console.error(error);
-        toast.error("مشکلی در ورود پیش امده. لطفاً دوباره تلاش کنید.");
+      if (result?.error) {
+        toast.error("ایمیل یا رمز عبور اشتباه است.");
+      } else {
+        toast.success("ورود موفقیت‌ آمیز بود!");
+        window.location.href = "/";
       }
     },
   });

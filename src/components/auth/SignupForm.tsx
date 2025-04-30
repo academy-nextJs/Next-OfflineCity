@@ -1,52 +1,64 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
-import axios from "@/utils/services/interceptor/axios";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
-import { AxiosError } from "axios";
 
 export default function SignupForm() {
-  const router = useRouter();
-
   const form = useForm({
     defaultValues: {
       fullName: "",
-      phoneNumber: "",
       email: "",
       password: "",
+      phoneNumber: "",
     },
     onSubmit: async ({ value }) => {
       try {
-        await axios.post("/auth/register", {
-          email: value.email,
-          password: value.password,
-          fullName: value.fullName,
-          phoneNumber: value.phoneNumber,
-          role: "buyer",
-        });
+        const res = await fetch(
+          "https://delta-project.liara.run/api/auth/register",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: value.email,
+              password: value.password,
+              fullName: value.fullName,
+              phoneNumber: value.phoneNumber,
+              role: "buyer",
+            }),
+          }
+        );
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data?.message || "خطا در ثبت‌ نام");
+        }
 
         toast.success("ثبت‌ نام با موفقیت انجام شد!");
-        router.push(`/verify-code?email=${value.email}`);
-      } catch (error: unknown) {
-        if (isAxiosError(error)) {
-          const data = error.response?.data as { message?: string };
-          toast.error(data?.message || "خطا در ثبت‌ نام.");
+
+        await signIn("credentials", {
+          redirect: true,
+          email: value.email,
+          password: value.password,
+          callbackUrl: "/",
+        });
+      } catch (error) {
+        if (
+          error &&
+          typeof error === "object" &&
+          "message" in error &&
+          typeof error.message === "string"
+        ) {
+          toast.error(error.message);
         } else {
-          toast.error("خطایی پیش آمد.");
+          toast.error("مشکلی در ثبت‌ نام پیش آمد.");
         }
       }
     },
   });
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit();
-      }}
-      className="space-y-6"
-    >
+    <form onSubmit={form.handleSubmit} className="space-y-6">
       <h2 className="text-2xl font-bold text-center mb-6 font-yekan">
         ایجاد حساب کاربری
       </h2>
@@ -87,7 +99,7 @@ export default function SignupForm() {
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
               className="border p-3 rounded w-full"
-              placeholder="مثلا your@email.com"
+              placeholder="ایمیل را وارد کنید"
               type="email"
             />
           </div>
@@ -116,8 +128,4 @@ export default function SignupForm() {
       </button>
     </form>
   );
-}
-
-function isAxiosError(error: unknown): error is AxiosError {
-  return typeof error === "object" && error !== null && "isAxiosError" in error;
 }

@@ -6,6 +6,7 @@ import Footer from "@/components/common/Footer";
 import MyNavbar from "@/components/common/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,12 +33,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          <MyNavbar />
-          {children}
-          <Footer />
-          <ToastContainer autoClose={3000} />
-        </Providers>
+        <SessionProvider>
+          <Providers>
+            <MyNavbar />
+            {children}
+            <Footer />
+            <ToastContainer autoClose={3000} />
+          </Providers>
+        </SessionProvider>
       </body>
     </html>
   );

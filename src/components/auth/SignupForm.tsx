@@ -66,7 +66,9 @@ export default function SignupForm() {
         <form.Field name="fullName">
           {(field) => (
             <div>
-              <label className="block mb-2">نام کامل</label>
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                نام کامل
+              </label>
               <input
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
@@ -80,7 +82,9 @@ export default function SignupForm() {
         <form.Field name="phoneNumber">
           {(field) => (
             <div>
-              <label className="block mb-2">شماره موبایل</label>
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                شماره موبایل
+              </label>
               <input
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
@@ -94,7 +98,9 @@ export default function SignupForm() {
         <form.Field name="email">
           {(field) => (
             <div>
-              <label className="block mb-2">ایمیل</label>
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                ایمیل
+              </label>
               <input
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
@@ -109,7 +115,9 @@ export default function SignupForm() {
         <form.Field name="password">
           {(field) => (
             <div>
-              <label className="block mb-2">رمز عبور</label>
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                رمزعبور
+              </label>
               <input
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}

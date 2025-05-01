@@ -35,9 +35,10 @@ export default function LoginForm() {
         <form.Field name="email">
           {(field) => (
             <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700">
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                 ایمیل
               </label>
+
               <input
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
@@ -52,9 +53,10 @@ export default function LoginForm() {
         <form.Field name="password">
           {(field) => (
             <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700">
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                 رمز عبور
               </label>
+
               <input
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}

@@ -3,6 +3,7 @@
 import { useForm } from "@tanstack/react-form";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
+import SignupHeader from "./SignupHeader";
 
 export default function SignupForm() {
   const form = useForm({
@@ -58,74 +59,74 @@ export default function SignupForm() {
   });
 
   return (
-    <form onSubmit={form.handleSubmit} className="space-y-6">
-      <h2 className="text-2xl font-bold text-center mb-6 font-yekan">
-        ایجاد حساب کاربری
-      </h2>
+    <>
+      <SignupHeader />
 
-      <form.Field name="fullName">
-        {(field) => (
-          <div>
-            <label className="block mb-2">نام کامل</label>
-            <input
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              className="border p-3 rounded w-full"
-              placeholder="مثلا فرنام میانرودیان"
-            />
-          </div>
-        )}
-      </form.Field>
+      <form onSubmit={form.handleSubmit} className="space-y-6">
+        <form.Field name="fullName">
+          {(field) => (
+            <div>
+              <label className="block mb-2">نام کامل</label>
+              <input
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                className="border p-3 rounded w-full"
+                placeholder="مثلا فرنام میانرودیان"
+              />
+            </div>
+          )}
+        </form.Field>
 
-      <form.Field name="phoneNumber">
-        {(field) => (
-          <div>
-            <label className="block mb-2">شماره موبایل</label>
-            <input
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              className="border p-3 rounded w-full"
-              placeholder="09112862773 مثلا"
-            />
-          </div>
-        )}
-      </form.Field>
+        <form.Field name="phoneNumber">
+          {(field) => (
+            <div>
+              <label className="block mb-2">شماره موبایل</label>
+              <input
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                className="border p-3 rounded w-full"
+                placeholder="09112862773 مثلا"
+              />
+            </div>
+          )}
+        </form.Field>
 
-      <form.Field name="email">
-        {(field) => (
-          <div>
-            <label className="block mb-2">ایمیل</label>
-            <input
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              className="border p-3 rounded w-full"
-              placeholder="ایمیل را وارد کنید"
-              type="email"
-            />
-          </div>
-        )}
-      </form.Field>
+        <form.Field name="email">
+          {(field) => (
+            <div>
+              <label className="block mb-2">ایمیل</label>
+              <input
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                className="border p-3 rounded w-full"
+                placeholder="ایمیل را وارد کنید"
+                type="email"
+              />
+            </div>
+          )}
+        </form.Field>
 
-      <form.Field name="password">
-        {(field) => (
-          <div>
-            <label className="block mb-2">رمز عبور</label>
-            <input
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              className="border p-3 rounded w-full"
-              type="password"
-            />
-          </div>
-        )}
-      </form.Field>
+        <form.Field name="password">
+          {(field) => (
+            <div>
+              <label className="block mb-2">رمز عبور</label>
+              <input
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                className="border p-3 rounded w-full"
+                type="password"
+              />
+            </div>
+          )}
+        </form.Field>
 
-      <button
-        type="submit"
-        className="bg-primary text-white w-full p-3 rounded"
-      >
-        ثبت‌نام
-      </button>
-    </form>
+        <button
+          type="submit"
+          className="bg-primary text-white w-full p-3 rounded"
+        >
+          ثبت‌نام
+        </button>
+      </form>
+    </>
   );
 }

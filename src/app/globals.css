@@ -15,6 +15,11 @@
 }
 
 @font-face {
+  font-family: "iranyekanx";
+  src: url("/fonts/IRANYekanX-Regular.ttf");
+}
+
+@font-face {
   font-family: "iransansr";
   src: url("/fonts/IRANSansX-Regular.ttf");
 }
@@ -24,31 +29,9 @@
 }
 
 body {
-  font-family: "iransansr", sans-serif;
+  font-family: "iranyekanx", "iransansr", sans-serif;
 }
 
-/* :root {
-
-  --background: #ffffff;
-  --foreground: #171717;
+input {
+  @apply placeholder:text-[#898989] bg-lightGrey-100;
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-} */

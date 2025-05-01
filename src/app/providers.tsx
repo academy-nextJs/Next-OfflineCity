@@ -1,17 +1,13 @@
 "use client";
 
 import { HeroUIProvider } from "@heroui/react";
-import { SessionProvider } from "next-auth/react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "react-redux";
+import store from "@/redux/store";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <SessionProvider>
-      <HeroUIProvider>
-        {children}
-        <ToastContainer autoClose={3000} />
-      </HeroUIProvider>
-    </SessionProvider>
+    <HeroUIProvider>
+      <Provider store={store}>{children}</Provider>
+    </HeroUIProvider>
   );
 }

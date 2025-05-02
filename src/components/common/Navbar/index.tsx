@@ -49,7 +49,7 @@ export default function MyNavbar() {
   return (
     <Navbar
       classNames={{
-        base: "px-7 lg:px-14",
+        base: "px-7 lg:px-14 dark:bg-dark-300",
         wrapper: "px-0 max-w-full",
       }}
       isBordered={theme == "dark"}

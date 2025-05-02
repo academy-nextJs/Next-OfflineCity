@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setPage } from "@/redux/slices/houses";
 import { getAllHouses } from "@/utils/services/api/houses";
-import { Pagination } from "@heroui/react";
+import { Pagination, Spinner } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import MortgageAndHouseRentCard from "./Card";
@@ -83,7 +83,11 @@ const MortgageAndHouseRentList = () => {
   }
 
   if (isLoading) {
-    return null;
+    return (
+      <div className="flex justify-center my-14">
+        <Spinner color="secondary" size="lg" />
+      </div>
+    );
   }
 
   return (
@@ -94,7 +98,7 @@ const MortgageAndHouseRentList = () => {
       {houses?.data.length > 0 ? (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-14">
           {houses?.data.map((house: HouseProps) => (
-            <MortgageAndHouseRentCard {...house} />
+            <MortgageAndHouseRentCard key={house.id} {...house} />
           ))}
         </div>
       ) : (

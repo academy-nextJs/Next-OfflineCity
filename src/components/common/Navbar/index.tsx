@@ -9,12 +9,11 @@ import {
   NavbarItem,
   Button,
 } from "@heroui/react";
-import { MdOutlineDarkMode } from "react-icons/md";
-import { LuSunMedium } from "react-icons/lu";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { toggleTheme } from "@/redux/slices/global";
+import { Moon, SunMedium } from "lucide-react";
 
 export default function MyNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -93,9 +92,9 @@ export default function MyNavbar() {
         </NavbarItem>
         <NavbarItem className="cursor-pointer" onClick={themeHandler}>
           {theme == "light" ? (
-            <MdOutlineDarkMode size={30} />
+            <Moon size={28} />
           ) : (
-            <LuSunMedium size={30} />
+            <SunMedium size={30}/>
           )}
         </NavbarItem>
       </NavbarContent>
@@ -109,7 +108,7 @@ export default function MyNavbar() {
           <Button
             className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
-            href="#"
+            href="/mortgage-and-house-rent"
           >
             رهن و اجاره
           </Button>
@@ -127,7 +126,7 @@ export default function MyNavbar() {
           <Button
             as={Link}
             className="bg-main text-white rounded-full font-[600]"
-            href="#"
+            href="/Login"
           >
             ثبت نام / ورود
           </Button>

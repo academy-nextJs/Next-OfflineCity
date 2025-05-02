@@ -3,7 +3,7 @@ import FooterCol from "./FooterCol";
 
 function Footer() {
   return (
-    <footer className="lg:mx-14 flex flex-col p-12 gap-10 lg:rounded-[32px] bg-lightGrey-100 dark:bg-dark-200 dark:text-white">
+    <footer className="lg:mx-14 lg:mb-11 flex flex-col p-12 gap-10 lg:rounded-[32px] bg-lightGrey-100 dark:bg-dark-200 dark:text-white">
       <h3 className="text-center xl:text-start text-[35px] sm:text-[64px] font-[700]">
         ALFA
       </h3>
@@ -24,7 +24,7 @@ function Footer() {
             { text: "نحوه رزرو اقامتگاه", className: "sm:text-[20px]" },
             { text: "راهنمای رزرو اقامتگاه" },
             { text: "شیوه پرداخت" },
-            { text: "لغو رزرو اقامتگاه" }, 
+            { text: "لغو رزرو اقامتگاه" },
           ]}
         />
         <FooterCol

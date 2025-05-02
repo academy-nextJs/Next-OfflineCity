@@ -1,172 +1,124 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setTransactionType } from "@/redux/slices/global";
-import { Location } from "@/types";
-import axiosInstance from "@/utils/services/interceptor/axios";
-import { Image, Input, Select, SelectItem } from "@heroui/react";
+import { setPage } from "@/redux/slices/houses";
+import { getAllHouses } from "@/utils/services/api/houses";
+import { Pagination } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import MortgageAndHouseRentCard from "./Card";
+import { HouseProps } from "@/types";
+import InputsModal from "./InputsModal";
 
 const MortgageAndHouseRentList = () => {
-  //   const { transactionType } = useAppSelector((store) => store.global);
   const dispatch = useAppDispatch();
+  const {
+    page,
+    sort,
+    order,
+    search,
+    location,
+    propertyType,
+    transactionType,
+    minPrice,
+    maxPrice,
+    minRent,
+    maxRent,
+    minMortgage,
+    maxMortgage,
+    minArea,
+    maxArea,
+  } = useAppSelector((store) => store.houses);
 
-  const { data } = useQuery({
-    queryKey: ["locations"],
-    queryFn: () => axiosInstance.get("/locations"),
+  const {
+    data: houses,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["houses", page],
+    queryFn: () =>
+      getAllHouses(
+        page,
+        sort,
+        order,
+        search,
+        location,
+        propertyType,
+        transactionType,
+        minPrice,
+        maxPrice,
+        minRent,
+        maxRent,
+        minMortgage,
+        maxMortgage,
+        minArea,
+        maxArea
+      ),
   });
 
+  useEffect(() => {
+    refetch();
+  }, [
+    page,
+    sort,
+    order,
+    search,
+    location,
+    transactionType,
+    propertyType,
+    minPrice,
+    maxPrice,
+    minRent,
+    maxRent,
+    minMortgage,
+    maxMortgage,
+    minArea,
+    maxArea,
+  ]);
+
+  if (error) {
+    return (
+      <p className="text-center text-xl mb-14">خطا در دریافت اطلاعات :(</p>
+    );
+  }
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
-    <div className="flex flex-col gap-10 my-10 px-14">
-      <div className="flex items-center gap-6">
-        <Input
-          placeholder="جستجو کنید ..."
-          label="جستجو"
-          labelPlacement="outside"
-          className="w-[23%]"
-          classNames={{
-            inputWrapper:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 px-0 h-12 rounded-full",
-            label: "py-2 font-bold",
-          }}
-          startContent={
-            <div className="me-1">
-              <Image
-                className="w-14 h-12"
-                src="/images/mortgage and house rent/Frame 81.png"
-              />
-            </div>
-          }
-        />
-
-        <Select
-          placeholder="انتخاب کنید"
-          label="مرتب سازی بر اساس"
-          labelPlacement="outside"
-          className="w-[14%]"
-          classNames={{
-            trigger:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 h-12 rounded-full",
-            label: "py-2 font-bold",
-          }}
-        >
-          <SelectItem>محبوب ترین</SelectItem>
-          <SelectItem>گران ترین</SelectItem>
-          <SelectItem>ارزان ترین</SelectItem>
-        </Select>
-
-        <Select
-          items={
-            data?.data.map((item: Location) => ({
-              key: item.id,
-              label: item.area_name,
-            })) || []
-          }
-          placeholder="انتخاب کنید"
-          label="محل مورد نظر"
-          labelPlacement="outside"
-          className="w-[14%]"
-          classNames={{
-            trigger:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 rounded-full h-12",
-            label: "py-2 font-bold",
-          }}
-          onChange={(e) => console.log(e.target.value)}
-        >
-          {(item: { label: string; key: string }) => (
-            <SelectItem key={item.key}>{item.label}</SelectItem>
-          )}
-        </Select>
-
-        <Select
-          placeholder="انتخاب کنید"
-          label="نوع ملک"
-          labelPlacement="outside"
-          className="w-[14%]"
-          classNames={{
-            trigger:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 rounded-full h-12",
-            label: "py-2 font-bold",
-          }}
-        >
-          <SelectItem>آپارتمان</SelectItem>
-          <SelectItem>ویلا</SelectItem>
-          <SelectItem>روستایی</SelectItem>
-        </Select>
-
-        <Select
-          placeholder="انتخاب کنید"
-          label="نوع معامله"
-          labelPlacement="outside"
-          className="w-[14%]"
-          classNames={{
-            trigger:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 rounded-full h-12",
-            label: "py-2 font-bold",
-          }}
-          onChange={(e) => dispatch(setTransactionType(e.target.value))}
-        >
-          <SelectItem key="rental">اجاره</SelectItem>
-          <SelectItem key="mortgage">رهن</SelectItem>
-        </Select>
+    <div className="mx-14 mt-20">
+      <div className="lg:hidden mb-6 pb-4 border-b">
+        <InputsModal />
       </div>
-
-      <div className="flex gap-8">
-        <Input
-          label="حداکثر قیمت"
-          labelPlacement="outside"
-          placeholder="وارد کنید"
-          className="w-[14%]"
-          classNames={{
-            inputWrapper:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 ps-5 h-12 rounded-full",
-            label: "py-2 font-bold",
-          }}
-        />
-        <Input
-          label="حداقل اجاره"
-          labelPlacement="outside"
-          placeholder="وارد کنید"
-          className="w-[14%]"
-          classNames={{
-            inputWrapper:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 ps-5 h-12 rounded-full",
-            label: "py-2 font-bold",
-          }}
-        />
-        <Input
-          label="حداکثر اجاره"
-          labelPlacement="outside"
-          placeholder="وارد کنید"
-          className="w-[14%]"
-          classNames={{
-            inputWrapper:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 ps-5 h-12 rounded-full",
-            label: "py-2 font-bold",
-          }}
-        />
-        <Input
-          label="حداقل متراژ"
-          labelPlacement="outside"
-          placeholder="وارد کنید"
-          className="w-[14%]"
-          classNames={{
-            inputWrapper:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 ps-5 h-12 rounded-full",
-            label: "py-2 font-bold",
-          }}
-        />
-        <Input
-          label="حداکثر متراژ"
-          labelPlacement="outside"
-          placeholder="وارد کنید"
-          className="w-[14%]"
-          classNames={{
-            inputWrapper:
-              "bg-lightGrey-100 data-[hover]:bg-lightGrey-200 ps-5 h-12 rounded-full",
-            label: "py-2 font-bold",
-          }}
-        />
-      </div>
+      {houses?.data.length > 0 ? (
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-14">
+          {houses?.data.map((house: HouseProps) => (
+            <MortgageAndHouseRentCard {...house} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-xl mb-14">هیچی پیدا نکردم! :(</p>
+      )}
+      {houses?.data.length > 0 && (
+        <div className="overflow-hidden">
+          <Pagination
+            style={{ direction: "ltr" }}
+            className="mt-[46px] mb-[72px]"
+            classNames={{
+              base: "flex justify-center",
+              item: "rounded-full mx-1",
+              prev: "bg-white border border-main rounded-full",
+              next: "bg-white border border-main rounded-full",
+              cursor: "bg-main rounded-full",
+            }}
+            total={Math.ceil(houses?.data.length / 10)}
+            page={page}
+            showControls
+            onChange={(number) => dispatch(setPage(number))}
+          />
+        </div>
+      )}
     </div>
   );
 };

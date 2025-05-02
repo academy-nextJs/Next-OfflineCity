@@ -32,6 +32,15 @@ body {
   font-family: "iranyekanx", "iransansr", sans-serif;
 }
 
+body {
+  @apply dark:bg-dark-300;
+}
+
 input {
   @apply placeholder:text-[#898989] bg-lightGrey-100;
+}
+
+span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: #7575fe;
+  opacity: 1;
 }

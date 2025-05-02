@@ -10,3 +10,31 @@ export type Location = {
   lat: string;
   lng: string;
 };
+
+export interface HouseProps {
+  id: string;
+  title: string;
+  address: string;
+  photos: string[];
+  rate: string;
+  price: string;
+  tags: string[];
+  capacity: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  categories: {
+    id: number;
+    name: string;
+  };
+  bathrooms: number;
+  parking: number;
+  rooms: number;
+  yard_type: string;
+  num_comments: number;
+  transaction_type: string;
+  sellerId: string;
+  sellerName: string;
+  caption: string;
+}

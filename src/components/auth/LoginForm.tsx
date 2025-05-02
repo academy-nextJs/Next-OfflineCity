@@ -21,60 +21,56 @@ export default function LoginForm() {
       if (result?.error) {
         toast.error("ایمیل یا رمز عبور اشتباه است.");
       } else {
-        toast.success("ورود موفقیت‌ آمیز بود!");
+        toast.success("ورود موفقیت‌آمیز بود!");
         window.location.href = "/";
       }
     },
   });
 
   return (
-    <>
+    <form onSubmit={form.handleSubmit} className="space-y-6">
       <LoginHeader />
 
-      <form onSubmit={form.handleSubmit} className="space-y-6">
-        <form.Field name="email">
-          {(field) => (
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-                ایمیل
-              </label>
+      <form.Field name="email">
+        {(field) => (
+          <div>
+            <label className="block text-sm font-yekan mb-2 text-gray-700 dark:text-gray-200">
+              ایمیل
+            </label>
+            <input
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="border p-3 rounded-lg w-full font-yekan"
+              placeholder="ایمیل را وارد کنید"
+              type="email"
+            />
+          </div>
+        )}
+      </form.Field>
 
-              <input
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-                placeholder="ایمیل را وارد کنید"
-                type="email"
-              />
-            </div>
-          )}
-        </form.Field>
+      <form.Field name="password">
+        {(field) => (
+          <div>
+            <label className="block text-sm font-yekan mb-2 text-gray-700 dark:text-gray-200">
+              رمز عبور
+            </label>
+            <input
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="border p-3 rounded-lg w-full font-yekan"
+              placeholder="رمز عبور را وارد کنید"
+              type="password"
+            />
+          </div>
+        )}
+      </form.Field>
 
-        <form.Field name="password">
-          {(field) => (
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-                رمز عبور
-              </label>
-
-              <input
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                className="border border-gray-300 p-3 rounded-lg w-full text-sm font-yekan"
-                placeholder="رمز عبور را وارد کنید"
-                type="password"
-              />
-            </div>
-          )}
-        </form.Field>
-
-        <button
-          type="submit"
-          className="bg-primary hover:bg-primary-dark transition-all text-white p-3 rounded-lg w-full text-sm font-yekan"
-        >
-          ورود به حساب
-        </button>
-      </form>
-    </>
+      <button
+        type="submit"
+        className="bg-primary hover:bg-primary-dark transition text-white p-3 rounded-lg w-full font-yekan"
+      >
+        ورود
+      </button>
+    </form>
   );
 }

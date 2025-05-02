@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "react-toastify";
+import AuthHeader from "../AuthHeader";
 
 interface Step1EmailProps {
   onNext: () => void;
@@ -26,25 +27,14 @@ export default function Step1Email({ onNext }: Step1EmailProps) {
       );
 
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data?.message || "ارسال ایمیل با خطا مواجه شد.");
-      }
+      if (!res.ok)
+        throw new Error(data.message || "ارسال ایمیل با مشکل مواجه شد.");
 
       localStorage.setItem("tempUserId", data.tempUserId);
       toast.success("کد تأیید به ایمیل ارسال شد.");
       onNext();
-    } catch (error: unknown) {
-      if (
-        typeof error === "object" &&
-        error !== null &&
-        "message" in error &&
-        typeof (error as { message: string }).message === "string"
-      ) {
-        toast.error((error as { message: string }).message);
-      } else {
-        toast.error("مشکلی پیش آمد.");
-      }
+    } catch {
+      toast.error("خطا در ارسال ایمیل");
     } finally {
       setLoading(false);
     }
@@ -52,24 +42,27 @@ export default function Step1Email({ onNext }: Step1EmailProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <h2 className="text-2xl font-bold font-yekan text-center">
-        ثبت‌ نام - مرحله اول
-      </h2>
-      <label className="block font-yekan text-sm text-gray-700 dark:text-gray-200">
+      <AuthHeader
+        title="ثبت‌ نام در آلفا"
+        description="برای ثبت‌نام در آلفا می‌توانید با اکانت گوگل یا اپل خود و یا با ارسال کد تأیید به ایمیل خود اقدام کنید."
+      />
+
+      <label className="block text-sm font-yekan text-gray-700 dark:text-gray-200">
         ایمیل
       </label>
       <input
+        type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        type="email"
-        required
-        className="border p-3 rounded w-full"
+        className="border p-3 rounded w-full font-yekan"
         placeholder="ایمیل خود را وارد کنید"
+        required
       />
+
       <button
         type="submit"
         disabled={loading}
-        className="bg-primary text-white w-full p-3 rounded font-yekan"
+        className="bg-primary hover:bg-primary-dark text-white p-3 rounded w-full font-yekan transition"
       >
         {loading ? "در حال ارسال..." : "ارسال کد تأیید"}
       </button>

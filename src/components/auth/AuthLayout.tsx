@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -16,6 +17,31 @@ export default function AuthLayout({
   imageAlt = "عکس",
   caption,
 }: AuthLayoutProps) {
+  const textRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = (direction: "up" | "down") => {
+    const el = textRef.current;
+    if (!el) return;
+
+    const lineHeight = 30;
+    const currentScroll = el.scrollTop;
+
+    if (direction === "up" && currentScroll > 0) {
+      el.scrollTo({
+        top: currentScroll - lineHeight * 2,
+        behavior: "smooth",
+      });
+    } else if (
+      direction === "down" &&
+      currentScroll + el.clientHeight < el.scrollHeight
+    ) {
+      el.scrollTo({
+        top: currentScroll + lineHeight * 2,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col md:flex-row-reverse">
       <div className="hidden md:flex md:w-[60%] items-start justify-end relative overflow-hidden">
@@ -28,66 +54,47 @@ export default function AuthLayout({
             priority
           />
 
-          <div className="absolute top-[340px] right-[0px] p-4 rounded-[28px] flex items-center justify-center">
-            <Image
-              src="/images/Authentication/icons/top-icon.png"
-              alt="آیکون بالا"
-              width={60}
-              height={60}
-            />
-          </div>
-
           {caption && (
-            <div
-              className="absolute right-8 top-[426px] w-[640px] h-[180px] text-right text-white font-yekan"
-              style={{
-                fontWeight: 500,
-                fontSize: "20px",
-                lineHeight: "30px",
-              }}
-            >
-              {caption}
+            <div className="absolute right-8 top-[426px] w-[640px] h-[180px] text-white font-yekan text-right flex flex-col justify-between">
+              <div
+                ref={textRef}
+                className="h-[120px] overflow-hidden pr-1 space-y-1 text-sm"
+                style={{
+                  lineHeight: "30px",
+                  fontSize: "20px",
+                  fontWeight: 500,
+                  overflowY: "auto",
+                  scrollbarWidth: "none",
+                  direction: "rtl",
+                }}
+              >
+                {caption}
+              </div>
+
+              <div className="flex justify-center gap-4 mt-2">
+                <div>
+                  <button
+                    onClick={() => handleScroll("up")}
+                    className="bg-white/30 hover:bg-white/50 text-white p-2 rounded-full transition-colors"
+                  >
+                    <ChevronUp />
+                  </button>
+                </div>
+                <div>
+                  <button
+                    onClick={() => handleScroll("down")}
+                    className="bg-white/30 hover:bg-white/50 text-white p-2 rounded-full transition-colors"
+                  >
+                    <ChevronDown />
+                  </button>
+                </div>
+              </div>
             </div>
           )}
-
-          <div className="absolute right-8 bottom-8 flex items-center gap-4 z-10">
-            <Image
-              src="/images/Authentication/icons/avatar.png"
-              alt="پروفایل پارسا"
-              width={48}
-              height={48}
-              className="rounded-full"
-            />
-
-            <div className="text-white font-yekan flex flex-col justify-center leading-[24px]">
-              <span className="font-semibold text-[16px]">پارسا آقایی</span>
-              <span className="font-medium text-[14px]">12 مرداد 1403</span>
-            </div>
-          </div>
-
-          <div className="absolute left-8 -bottom-4 flex items-center gap-0 z-10">
-            <div className="p-4 rounded-[28px] flex items-center justify-center">
-              <Image
-                src="/images/Authentication/icons/arrow-right.png"
-                alt="فلش راست"
-                width={75}
-                height={75}
-              />
-            </div>
-
-            <div className="p-4 rounded-[28px] flex items-center justify-center">
-              <Image
-                src="/images/Authentication/icons/arrow-left.png"
-                alt="فلش چپ"
-                width={75}
-                height={75}
-              />
-            </div>
-          </div>
         </div>
       </div>
 
-      <div className="flex flex-1 items-start justify-center px-4 py-10 md:py-24">
+      <div className="flex flex-1 items-start justify-center bg-white dark:bg-black px-4 py-10 md:py-24">
         <div className="w-full max-w-md">{children}</div>
       </div>
     </div>

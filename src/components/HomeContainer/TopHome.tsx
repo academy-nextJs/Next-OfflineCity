@@ -1,0 +1,40 @@
+"use client"
+import React, { useEffect, useState } from 'react'
+import BlueButton from '../common/BlueButton/BlueButton'
+import CustomPlugin from '../common/CustomPlugin/CustomPlugin'
+import axiosInstance from '@/utils/services/interceptor/axios'
+
+const TopHome = () => {
+  const [topHome, setTopHome] = useState<any>()
+
+const GetTopHome = async () => {
+  const res = await axiosInstance.get("/houses?page=1&limit=10&sort=price&order=ASC")
+
+  setTopHome(res?.data)
+}
+
+useEffect(() => {
+
+  GetTopHome()
+
+}, [])
+
+console.log("tophome 1234 " , topHome)
+
+  return (
+    <div className='pt-[180px]'>
+        <div > <BlueButton children="خرید و فروش" className='text-[#7575FE] bg-transparent border-1 border-[#7575FE]' /> </div>
+        <div className='flex justify-between pt-4'>
+          <div className='font-[700] text-[32px]'>
+              <p>  خرید و فروش های داغ  <br />   این هفته</p>  
+          </div>
+          <div> <BlueButton children="مشاهده همه" className='bg-[#7575FE]   text-[#ffff]' /> </div>
+        </div>  
+        <div>
+             <CustomPlugin  showDiscount={false} showPrice={true} data={topHome} /> 
+        </div>
+    </div>
+  )
+}
+
+export default TopHome

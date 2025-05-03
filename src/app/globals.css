@@ -44,3 +44,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   background-color: #7575fe;
   opacity: 1;
 }
+
+.rounded-auth {
+  border-radius: 31px !important;
+}

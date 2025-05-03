@@ -71,7 +71,7 @@ export default function Step3SetPassword({
           type="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          className="border p-3 rounded w-full font-yekan"
+          className="border p-3 rounded-auth w-full font-yekan dark:bg-dark-100 dark:border-lightGrey-100"
           placeholder="شماره موبایل"
           required
         />
@@ -85,7 +85,7 @@ export default function Step3SetPassword({
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-3 rounded w-full font-yekan"
+          className="border p-3 rounded-auth w-full font-yekan dark:bg-dark-100 dark:border-lightGrey-100"
           placeholder="رمز عبور"
           required
         />
@@ -99,7 +99,7 @@ export default function Step3SetPassword({
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="border p-3 rounded w-full font-yekan"
+          className="border p-3 rounded-auth w-full font-yekan dark:bg-dark-100 dark:border-lightGrey-100"
           placeholder="تکرار رمز عبور"
           required
         />
@@ -107,7 +107,7 @@ export default function Step3SetPassword({
 
       <button
         type="submit"
-        className="bg-primary hover:bg-primary-dark text-white p-3 rounded w-full font-yekan transition"
+        className="bg-primary hover:bg-primary-dark text-white p-3 rounded-auth w-full font-yekan transition dark:bg-main"
       >
         ثبت‌ نام نهایی
       </button>

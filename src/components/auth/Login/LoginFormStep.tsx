@@ -73,6 +73,12 @@ export default function LoginFormStep() {
       >
         {loading ? "در حال ورود..." : "ورود"}
       </button>
+      <p className="text-center text-sm font-yekan mt-4 text-gray-600 dark:text-gray-300">
+        حساب کاربری ندارید؟{" "}
+        <a href="/Signup" className="text-primary font-bold hover:underline">
+          ثبت‌ نام در آلفا
+        </a>
+      </p>
     </form>
   );
 }

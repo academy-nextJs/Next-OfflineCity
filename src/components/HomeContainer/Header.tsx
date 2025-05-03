@@ -1,19 +1,41 @@
+'use client'
 import { Avatar, AvatarGroup } from "@heroui/avatar";
 import { Image } from "@heroui/image";
+import SearchModals from "../common/SearchModals/SearchModals";
+import { useEffect, useState } from "react";
+import axiosInstance from "@/utils/services/interceptor/axios";
 
 const Header = () => {
+  const [IsOpen, setIsOpen] = useState(false)
+
+  const [data, setData] = useState<any>()
+  const [filter, setFilters] = useState<any>()
+
+  const GetTopHome = async () => {
+    const res = await axiosInstance.get("/houses?page=1&limit=10&sort=price&order=ASC")
+  
+    setData(res?.data)
+  }
+  
+  useEffect(() => {
+  
+    GetTopHome()
+  
+  }, [])
+  
   return (
     <div className="flex flex-col items-center lg:items-stretch lg:flex-row lg:justify-between px-14 my-8 gap-8">
       <div className="flex justify-center lg:justify-start items-center w-full lg:w-1/2">
         <div className="relative">
           <Image src="/images/home/image 1.png" />
-          <span className="hidden lg:flex flex-col bg-main text-white text-[10px] xl:text-[12px] w-20 h-20 xl:w-24 xl:h-24 rounded-full  justify-center items-center border-4 border-white absolute top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2 z-10">
+          <button onClick={() => setIsOpen (true)} className="hidden lg:flex flex-col bg-main text-white text-[10px] xl:text-[12px] w-20 h-20 xl:w-24 xl:h-24 rounded-full  justify-center items-center border-4 border-white absolute top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2 z-10">
             <Image
               className="w-6 h-6 xl:w-8 xl:h-8"
               src="/images/home/Frame.png"
             />
             جستجو سریع
-          </span>
+            <SearchModals isOpen={IsOpen} onClose={() => setIsOpen(false)} onFilter={(data) =>{setFilters(data)}}/>
+          </button>
         </div>
       </div>
 

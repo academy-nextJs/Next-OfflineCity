@@ -1,15 +1,14 @@
 import axios, {
-  AxiosError,
   AxiosInstance,
   AxiosResponse,
+  AxiosError,
   InternalAxiosRequestConfig,
 } from "axios";
 import { toast } from "react-toastify";
 
-// ساخت axios instance
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: "https://delta-project.liara.run/api",
-  timeout: 10000,
+  timeout: 30000,
 });
 
 axiosInstance.interceptors.request.use(
@@ -30,20 +29,27 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
-    if (error.response) {
+    if (error.code === "ECONNABORTED") {
+      toast.error("سرور پاسخ نداد. لطفاً دوباره تلاش کن.");
+    } else if (error.response) {
       const status = error.response.status;
 
       if (status === 401) {
-        toast.error("باید وارد حساب کاربریت بشی پس لاگین کن!");
+        toast.error("احراز هویت انجام نشد.");
       } else if (status === 403) {
-        toast.error("دسترسی نداری!");
+        toast.error("شما اجازه دسترسی ندارید.");
       } else if (status === 404) {
-        toast.error("چیزی پیدا نکردم!");
+        toast.error("آدرس یافت نشد.");
       } else {
-        toast.error("مشکلی پیش اومده. لطفاً دوباره امتحان کن.");
+        const data = error.response.data;
+        if (data && typeof data === "object" && "message" in data) {
+          toast.error((data as { message: string }).message);
+        } else {
+          toast.error("مشکلی پیش اومده.");
+        }
       }
     } else {
-      toast.error("ارتباطم با سرور رو از دست دادم.");
+      toast.error("ارتباط با سرور برقرار نشد.");
     }
 
     return Promise.reject(error);

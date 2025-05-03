@@ -53,7 +53,7 @@ const Header = () => {
         </div>
 
         <div className="hidden xs:flex flex-col items-center lg:flex-row lg:justify-between lg:items-end gap-5 h-1/2">
-          <div className="flex flex-col gap-2 justify-center items-center lg:items-start xl:h-[210px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100">
+          <div className="flex flex-col gap-2 justify-center items-center lg:items-start xl:h-[210px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100 dark:bg-dark-100 dark:border">
             <span className="font-[700]">بیش از</span>
             <span className="text-[28px] xl:text-[40px] font-[700]">
               ۷۰۰۰ +
@@ -72,7 +72,7 @@ const Header = () => {
             </span>
           </div>
 
-          <div className="flex flex-col items-center lg:items-start gap-2 lg:h-[250px] xl:h-[287px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-[#DFDFFF]">
+          <div className="flex flex-col items-center lg:items-start gap-2 lg:h-[250px] xl:h-[287px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-[#DFDFFF] dark:bg-dark-100 dark:border">
             <span className="font-[700]">بیش از</span>
             <span className="text-[28px] xl:text-[40px] font-[700] truncate">
               ۸۵۰۰ +
@@ -82,7 +82,7 @@ const Header = () => {
             </span>
           </div>
 
-          <div className="flex flex-col items-center lg:items-start gap-2 lg:h-[300px] xl:h-[360px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100">
+          <div className="flex flex-col items-center lg:items-start gap-2 lg:h-[300px] xl:h-[360px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100 dark:bg-dark-100 dark:border">
             <span className="font-[700]">بیش از </span>
             <span className="text-[28px] xl:text-[40px] font-[700] truncate">
               ۹۰۰۰ +

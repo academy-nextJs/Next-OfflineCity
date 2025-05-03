@@ -10,10 +10,27 @@ import {
   Button,
 } from "@heroui/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { toggleTheme } from "@/redux/slices/global";
+import { Moon, SunMedium } from "lucide-react";
 
 export default function MyNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme } = useAppSelector((state) => state.global);
+  const dispatch = useAppDispatch();
+
+  const themeHandler = () => {
+    if (theme == "light") {
+      dispatch(toggleTheme("dark"));
+    } else {
+      dispatch(toggleTheme("light"));
+    }
+  };
+
+  useEffect(() => {
+    document.documentElement.classList = theme;
+  }, [theme]);
 
   const menuItems = [
     "Profile",
@@ -31,9 +48,10 @@ export default function MyNavbar() {
   return (
     <Navbar
       classNames={{
-        base: "px-7 lg:px-14",
+        base: "px-7 lg:px-14 dark:bg-dark-300",
         wrapper: "px-0 max-w-full",
       }}
+      isBordered={theme == "dark"}
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
     >
@@ -46,7 +64,7 @@ export default function MyNavbar() {
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         <NavbarItem>
           <Button
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
             href="/"
           >
@@ -57,7 +75,7 @@ export default function MyNavbar() {
         <NavbarItem>
           <Button
             as={Link}
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             href="#"
           >
             مقالات
@@ -65,12 +83,19 @@ export default function MyNavbar() {
         </NavbarItem>
         <NavbarItem>
           <Button
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
             href="#"
           >
             درباره آلفا
           </Button>
+        </NavbarItem>
+        <NavbarItem className="cursor-pointer" onClick={themeHandler}>
+          {theme == "light" ? (
+            <Moon size={28} />
+          ) : (
+            <SunMedium size={30}/>
+          )}
         </NavbarItem>
       </NavbarContent>
 
@@ -81,16 +106,16 @@ export default function MyNavbar() {
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           <Button
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
-            href="#"
+            href="/mortgage-and-house-rent"
           >
             رهن و اجاره
           </Button>
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">
           <Button
-            className="bg-lightGrey-200 rounded-full font-[600]"
+            className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
             href="#"
           >
@@ -101,7 +126,7 @@ export default function MyNavbar() {
           <Button
             as={Link}
             className="bg-main text-white rounded-full font-[600]"
-            href="#"
+            href="/Login"
           >
             ثبت نام / ورود
           </Button>

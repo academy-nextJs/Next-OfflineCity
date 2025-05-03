@@ -107,7 +107,7 @@ export default function AuthLayout({
         </div>
       </div>
 
-      <div className="flex flex-1 items-start justify-center bg-white dark:bg-black px-4 py-10 md:py-24">
+      <div className="flex flex-1 items-start justify-center px-4 py-10 md:py-24">
         <div className="w-full max-w-md">{children}</div>
       </div>
     </div>

@@ -3,51 +3,63 @@ import { Swiper , SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import {Skeleton } from "@heroui/skeleton";
 import { relative } from "path";
 
 type SlideItem = {
-    image: string;
+  photos: string;
     title:string;
     description:string;
 }
 
+type data = {
+  id:number;
+  title:string;
+  address:string;
+  photos:string;
+  price:number;
+  rate:number;
+}
+
+
 type slidesPerViewProps = {
   slidesPerView: number;
+  data:data[]
 }
 
 const slides: SlideItem[] = [
     {
-        image: 'https://via.placeholder.com/300',
+      photos: 'https://via.placeholder.com/300',
         title: 'اول',
         description: 'عکس اول'
 
     }, 
        {
-        image: 'https://via.placeholder.com/600*400',
+        photos: 'https://via.placeholder.com/600*400',
         title: 'دوم',
         description: 'عکس دوم'
 
     },  
       {
-        image: 'https://via.placeholder.com/600*400',
+        photos: 'https://via.placeholder.com/600*400',
         title: 'سوم',
         description: 'عکس سوم'
 
     }, 
        {
-        image: 'https://source.unsplash.com/random/800*400',
+        photos: 'https://source.unsplash.com/random/800*400',
         title: 'چهارم',
         description: 'عکس چهارم'
 
     },  
       {
-        image: 'https://source.unsplash.com/random/800*400',
+        photos: 'https://source.unsplash.com/random/800*400',
         title: 'پنجم',
         description: 'عکس پنجم'
 
     },   
      {
-        image: 'https://source.unsplash.com/random/800*400',
+      photos: 'https://source.unsplash.com/random/800*400',
         title: 'ششم',
         description: 'عکس ششم'
 
@@ -57,11 +69,12 @@ const slides: SlideItem[] = [
 
 
 
-const ImageTextSlider =   ({slidesPerView}:slidesPerViewProps) => {
-    // const res = await fetch('https://delta-project.liara.run/api/houses?page=1&limit=10&sort=price&order=ASC')
-    // const data = await res.json()
-    // console.log(data ,'data')
+const ImageTextSlider =   ({slidesPerView , data}:slidesPerViewProps) => {
+
+   const isLoading = !data || data.length === 0;
     return (
+      <>
+      
         <Swiper
           modules={[Navigation , Pagination ]}
           spaceBetween={30}
@@ -71,34 +84,100 @@ const ImageTextSlider =   ({slidesPerView}:slidesPerViewProps) => {
           navigation
           pagination={{clickable: true}}
           autoplay={{delay:3000}}
-          
+          className=" "
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+            },
+            640:{
+              slidesPerView: 1,
+            },
+             1024:{
+              slidesPerView: 2,
+             },
+             1280: {
+              slidesPerView: 2,
+             },
+             1536: {
+              slidesPerView: 3,
+             },
+          }}
         >
-            {slides.map((slide , index) => (
+           {isLoading ? Array.from({ length:3 }).map((_ , i) =>(
+            <SwiperSlide key={`skeleton-${i}`}>
+              <Skeleton className="w-[344px] h-[345px]  rounded-lg "/>
+            </SwiperSlide>
+          ))
+          
+            
+           : data?.map((slide:any , index:any) => (
                 <SwiperSlide key={index}>
-                  <div style={{position : 'relative' , textAlign: 'center'  }} className="bg-red-300">
+             { slide.photos.length === 0 || !slide.photos ? (   
+                  <div  style={{position : 'relative' , textAlign: 'center', width: '344px' , height: '345px'  }} >              
                    <img 
-                    src={slide.image}
-                    alt={slide.title}
+                    src={slide?.photos[1]}
+                    alt={slide.id}
                     style={{width: '100%' , height: '400px' , objectFit: 'cover' , borderRadius: '10px'}}
                    />
-                   <div style={{
+
+                  </div> )
+                  :
+                  (
+                    <Skeleton className="w-full h-80 rounded-[32px]"/>
+                  )
+
+                }  
+                {/* <button className="bg-[#ffff] w-12 h-12 rounded-full relative top-[-305px] left-[-515px]">  hh  </button>   */}
+                       
+                 <div className="" style={{
                     position: 'absolute',
-                    bottom: '20px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    bottom: '20px',          
                     color: '#fff',
+                    fontWeight: '600px',
+                    fontSize:'24px',
                     padding: '10px 20px',
                     borderRadius: '8px'
-                   }}>
-                     <h2> {slide.title} </h2>
-                     <p> {slide.description} </p>
-                   </div>
-                  </div>
+                   }} >
+                       <p className=""> {slide?.title} </p>              
+                   </div>   
+                          
                 </SwiperSlide>
             ))}
-
+       
         </Swiper>
+        </>
+
+        //  <Swiper
+        //   modules={[Navigation , Pagination ]}
+        //   spaceBetween={30}
+        //   slidesPerView={slidesPerView}
+        //   slidesPerGroup={2}
+        //   slidesPerGroupSkip={1}
+        //   navigation
+        //   pagination={{clickable: true}}
+        //   autoplay={{delay:3000}}
+          
+        // >
+        // {data?.map((item) =>(
+        //   <SwiperSlide key={item.id}>
+        //    <div className="w-full">
+        //      <div className="w-full h-52 mb-2 rounded-lg overflow-hidden">
+        //        {item?.photos.length === 0 ? (
+        //            <img 
+        //             src={item?.photos[1]}
+        //             alt={item.title}
+        //             style={{width: '100%' , height: '400px' , objectFit: 'cover' , borderRadius: '10px'}}
+        //            />                
+        //        ): (
+        //         <Skeleton className="w-full h-52 rounded-lg"/>
+        //        )}
+        //      </div>
+        //      <p className="text-sm font-medium relative   ">{item.title}   </p>
+        //    </div>
+        //   </SwiperSlide>
+        // ))}
+        // </Swiper>
+
     )
 }
 

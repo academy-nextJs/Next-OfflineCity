@@ -1,9 +1,23 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BlueButton from '../common/BlueButton/BlueButton'
 import ImageTextSlider from '../common/Swiper/swiper'
+import axiosInstance from '@/utils/services/interceptor/axios'
 
 const Rent = () => {
+    const [getDreamhouse, setGetDreamHouse] = useState<any>([])
+
+    const GetAllHome = async () => {
+         const res = await axiosInstance.get("/houses?page=1&limit=10&sort=price&order=ASC")
+    
+         setGetDreamHouse(res?.data)
+    }
+    
+    useEffect(() => {
+      
+     GetAllHome()
+    
+    }, [])
   return (
    <div className='pt-[87px] '> 
      <div className='bg-[#f9f9f9] pr-10 pb-[56px] rounded-[32px]'>
@@ -27,7 +41,7 @@ const Rent = () => {
             </div>            
         </div>
         <div className='pt-10'>
-            <ImageTextSlider slidesPerView={4.5}/>
+            <ImageTextSlider slidesPerView={4.5}  data={getDreamhouse}/>
         </div>
      </div>
   </div>

@@ -76,13 +76,13 @@ export default function Step2VerifyCode({ onNext }: Step2VerifyCodeProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 font-yekan">
       <AuthHeader
         title="ثبت نام در آلفا"
         description="لطفاً کد تأیید ارسال‌ شده به ایمیلت را وارد کن."
       />
 
-      <div className="flex justify-center gap-2 mt-4">
+      <div dir="ltr" className="flex justify-center gap-2 mt-4">
         {codeDigits.map((digit, index) => (
           <input
             key={index}
@@ -92,7 +92,8 @@ export default function Step2VerifyCode({ onNext }: Step2VerifyCodeProps) {
             type="text"
             inputMode="numeric"
             maxLength={1}
-            className="w-12 h-12 text-center border border-gray-300 dark:border-gray-600 rounded font-yekan text-lg"
+            className="w-12 h-12 text-center text-lg border border-gray-300 rounded-2xl text-black dark:text-white dark:bg-dark-100 dark:border-lightGrey-100"
+            dir="ltr"
             value={digit}
             onChange={(e) => handleChange(e.target.value, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
@@ -102,7 +103,7 @@ export default function Step2VerifyCode({ onNext }: Step2VerifyCodeProps) {
 
       <button
         type="submit"
-        className="bg-primary hover:bg-primary-dark text-white transition-all p-3 rounded-lg w-full text-sm font-yekan"
+        className="bg-primary hover:bg-primary-dark text-white transition-all p-3 rounded-auth w-full text-sm font-yekan dark:bg-main"
       >
         تایید کد
       </button>

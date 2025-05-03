@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import LoginHeader from "../LoginHeader";
+import Link from "next/link";
 
 export default function LoginFormStep() {
   const [email, setEmail] = useState("");
@@ -48,7 +49,7 @@ export default function LoginFormStep() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border p-3 rounded w-full"
+          className="dark:border p-3 rounded-[31px] w-full dark:bg-dark-100"
           placeholder="ایمیل را وارد کنید"
         />
       </div>
@@ -61,7 +62,7 @@ export default function LoginFormStep() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-3 rounded w-full"
+          className="dark:border p-3 rounded-[31px] w-full dark:bg-dark-100"
           placeholder="رمز عبور را وارد کنید"
         />
       </div>
@@ -69,10 +70,16 @@ export default function LoginFormStep() {
       <button
         type="submit"
         disabled={loading}
-        className="bg-primary text-white w-full p-3 rounded"
+        className="bg-main text-white w-full p-3 rounded-[31px]"
       >
-        {loading ? "در حال ورود..." : "ورود"}
+        {loading ? "در حال ورود..." : "ورود به حساب"}
       </button>
+      <p className="text-center text-sm font-yekan mt-4 text-gray-600 dark:text-gray-300">
+        حساب کاربری ندارید؟{" "}
+        <Link href="/Signup" className="text-main font-bold hover:underline">
+          ثبت‌ نام در آلفا
+        </Link>
+      </p>
     </form>
   );
 }

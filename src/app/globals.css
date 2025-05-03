@@ -36,14 +36,16 @@ body {
 
 
 
+
  :root {
 
   --background: #ffffff;
   --foreground: #171717;
 
+
+
 body {
   @apply dark:bg-dark-300;
-
 }
 
 input {
@@ -54,4 +56,11 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   background-color: #7575fe;
   opacity: 1;
 }
+
  }
+
+
+.rounded-auth {
+  border-radius: 31px !important;
+}
+

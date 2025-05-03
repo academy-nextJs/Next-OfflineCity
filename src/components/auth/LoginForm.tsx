@@ -30,11 +30,10 @@ export default function LoginForm() {
   return (
     <form onSubmit={form.handleSubmit} className="space-y-6">
       <LoginHeader />
-
       <form.Field name="email">
         {(field) => (
           <div>
-            <label className="block text-sm font-yekan mb-2 text-gray-700 dark:text-gray-200">
+            <label className="block text-[16px] font-yekan mb-2 text-gray-700 dark:text-gray-200">
               ایمیل
             </label>
             <input
@@ -51,7 +50,7 @@ export default function LoginForm() {
       <form.Field name="password">
         {(field) => (
           <div>
-            <label className="block text-sm font-yekan mb-2 text-gray-700 dark:text-gray-200">
+            <label className="block text-[16px] font-yekan mb-2 text-gray-700 dark:text-gray-200">
               رمز عبور
             </label>
             <input

@@ -1,13 +1,21 @@
 "use client";
 
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
+import { Swiper as SwiperType } from "swiper";
 import axiosInstance from "@/utils/services/interceptor/axios";
+
+type commentsProps = {
+  id: number;
+  text: string;
+  author: string;
+  date: string;
+};
 
 // const comments:commentsProps[] = [
 //    {id: 1 , text : 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم   از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد', author: 'پارسا' , date: "12,12,12"},
@@ -32,6 +40,7 @@ type dataProps = {
 
 const CommentsSlider: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const swiperRef = useRef<SwiperType | null>(null);
   const [data, setData] = useState<dataProps[]>();
 
   // const [comments, setComments] = useState({

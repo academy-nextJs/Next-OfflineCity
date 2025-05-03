@@ -32,18 +32,6 @@ body {
   font-family: "iranyekanx", "iransansr", sans-serif;
 }
 
-
-
-
-
-
- :root {
-
-  --background: #ffffff;
-  --foreground: #171717;
-
-
-
 body {
   @apply dark:bg-dark-300;
 }
@@ -57,10 +45,6 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   opacity: 1;
 }
 
- }
-
-
 .rounded-auth {
   border-radius: 31px !important;
 }
-

@@ -71,11 +71,11 @@ export default function AuthLayout({
                 {caption}
               </div>
 
-              <div className="flex justify-center gap-4 mt-2">
+              <div className="absolute -bottom-12 left-0 flex justify-center gap-4 mt-2">
                 <div>
                   <button
                     onClick={() => handleScroll("up")}
-                    className="bg-white/30 hover:bg-white/50 text-white p-2 rounded-full transition-colors"
+                    className="w-14 h-14  bg-white/30 hover:bg-white/50 text-white rounded-full flex items-center justify-center transition-colors"
                   >
                     <ChevronUp />
                   </button>
@@ -83,7 +83,7 @@ export default function AuthLayout({
                 <div>
                   <button
                     onClick={() => handleScroll("down")}
-                    className="bg-white/30 hover:bg-white/50 text-white p-2 rounded-full transition-colors"
+                    className="w-14 h-14 bg-white/30 hover:bg-white/50 text-white p-2 rounded-full flex items-center justify-center transition-colors"
                   >
                     <ChevronDown />
                   </button>
@@ -91,6 +91,19 @@ export default function AuthLayout({
               </div>
             </div>
           )}
+          <div className="absolute bottom-16 right-6 flex items-center gap-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-[24px] text-white font-yekan">
+            <Image
+              src="/images/Authentication/icons/icon.PNG"
+              alt="Parsa"
+              width={40}
+              height={40}
+              className="rounded-full object-cover"
+            />
+            <div className="text-right leading-tight">
+              <p className="text-sm font-semibold">پارسا آقایی</p>
+              <p className="text-xs text-gray-200">۱۲ مرداد ۱۴۰۳</p>
+            </div>
+          </div>
         </div>
       </div>
 

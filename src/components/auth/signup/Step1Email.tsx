@@ -54,7 +54,7 @@ export default function Step1Email({ onNext }: Step1EmailProps) {
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="border p-3 rounded w-full font-yekan"
+        className="border p-3 rounded-auth w-full font-yekan dark:bg-dark-100 dark:border-lightGrey-100"
         placeholder="ایمیل خود را وارد کنید"
         required
       />
@@ -62,10 +62,16 @@ export default function Step1Email({ onNext }: Step1EmailProps) {
       <button
         type="submit"
         disabled={loading}
-        className="bg-primary hover:bg-primary-dark text-white p-3 rounded w-full font-yekan transition"
+        className="bg-primary hover:bg-primary-dark text-white p-3 rounded-auth w-full font-yekan transition dark:bg-main"
       >
         {loading ? "در حال ارسال..." : "ارسال کد تأیید"}
       </button>
+      <p className="text-center text-sm font-yekan mt-4 text-gray-600 dark:text-gray-300">
+        حساب کاربری دارید؟{" "}
+        <a href="/Login" className="text-primary font-bold hover:underline">
+          ورود به حساب
+        </a>
+      </p>
     </form>
   );
 }

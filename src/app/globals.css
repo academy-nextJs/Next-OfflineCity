@@ -35,3 +35,7 @@ body {
 input {
   @apply placeholder:text-[#898989] bg-lightGrey-100;
 }
+
+.rounded-auth {
+  border-radius: 31px !important;
+}

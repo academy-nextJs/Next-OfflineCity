@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  theme: localStorage.getItem("theme") || "light",
+  theme: "light",
 };
 
 export const globalSlice = createSlice({
@@ -10,7 +10,6 @@ export const globalSlice = createSlice({
   reducers: {
     toggleTheme: (state, action: PayloadAction<string>) => {
       state.theme = action.payload;
-      localStorage.setItem("theme", state.theme);
     },
   },
 });

@@ -12,7 +12,7 @@ const Education = () => {
         <div className=''>
         <div> <BlueButton children="الفا درخشان" className='text-[#7575FE] bg-transparent border-1 border-[#7575FE]' /> </div>
         <div className='pt-4'> 
-            <h1 className='flex gap-1 font-[600] text-5xl'>   <h1 className='text-[#7575fe]'>  10+ </h1> سال سابقه درخشان </h1>
+            <h1 className='text-[#7575fe] flex gap-1 font-[600] text-5xl'>10+ سال سابقه درخشان</h1>
         </div>
         <div className='pt-4'>
             <div className='font-[400] text-base'>             

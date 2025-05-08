@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import MyNavbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
+import 'leaflet/dist/leaflet.css'
 
 export default function MainLayout({
   children,

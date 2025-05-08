@@ -24,7 +24,6 @@ const CommentsSlider: React.FC = () => {
     const [data, setData] = useState<dataProps[]>()
 
  
-
     const GetData = async  () => {
     const res = await axiosInstance.get('https://660f8c3b356b87a55c5199d9.mockapi.io/users')
     

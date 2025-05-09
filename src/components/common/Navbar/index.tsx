@@ -117,7 +117,7 @@ export default function MyNavbar() {
           <Button
             className="bg-lightGrey-200 dark:bg-dark-100 rounded-full font-[600]"
             as={Link}
-            href="#"
+            href="houseReserve"
           >
             رزرو سریع
           </Button>

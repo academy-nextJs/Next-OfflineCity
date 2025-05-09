@@ -11,6 +11,7 @@ import { setPosition } from "@/redux/slices/mapSlice";
 import { HouseProps } from "@/types";
 import { setHouseSearch } from "@/redux/slices/houseReserve";
 import { MapPin } from "lucide-react";
+import Link from "next/link";
 
 
 interface MapViewProps {

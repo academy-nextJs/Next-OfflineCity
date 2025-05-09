@@ -30,44 +30,46 @@ const CommentsSlider: React.FC = () => {
     setData(res?.data);
   };
 
-  useEffect(() => {
-    GetData();
-  }, []);
 
-  return (
-    <Swiper
-      slidesPerView={5}
-      centeredSlides
-      navigation
-      loop
-      modules={[Navigation]}
-      onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-      className="w-full "
-      breakpoints={{
-        320: {
-          slidesPerView: 1,
-        },
-        640: {
-          slidesPerView: 2,
-        },
-        1024: {
-          slidesPerView: 3,
-        },
-        1280: {
-          slidesPerView: 3,
-        },
-        1536: {
-          slidesPerView: 5,
-        },
-      }}
-    >
-      {data?.map((comment: dataProps, index: number) => {
-        const diff = Math.abs(index - activeIndex);
-        let size = " opacity-25 mt-32 space-y-10 ";
+    useEffect(() => {
+      GetData()
+    }, [])
+    
+    return(
+         <Swiper
+          slidesPerView={5}
+          centeredSlides
+          navigation
+          loop
+          modules={[  Navigation]}
+          onSlideChange={(swiper) =>setActiveIndex(swiper.realIndex)}
+          className="w-full "
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+            },
+            640:{
+              slidesPerView: 2,
+            },
+             1024:{
+              slidesPerView: 3,
+             },
+             1280: {
+              slidesPerView: 3,
+             },
+             1536: {
+              slidesPerView: 5,
+             },
+          }}
+        >
+            {data?.map((comment:dataProps , index:number) => {
+                const diff = Math.abs(index - activeIndex);
+                let size = ' opacity-25 mt-32 space-y-10 dark:bg-zinc-800 dark:text-white ';
 
-        if (index === activeIndex) size = "space-y-60  ";
-        else if (diff === 1 || diff === data?.length - 1)
-          size = " mt-16 space-y-40";
+                if (index === activeIndex) size = 'space-y-60 dark:bg-zinc-300 dark:text-black ';
+
+                else if (diff === 1 || diff === data?.length - 1) size = ' mt-16 space-y-40 dark:bg-zinc-700 dark:text-white '
+        
 
         return (
           <SwiperSlide

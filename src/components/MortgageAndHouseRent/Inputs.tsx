@@ -121,6 +121,7 @@ const Inputs = () => {
         </Select>
 
         <Select
+          selectedKeys={[housesValues.location]}
           items={
             data?.data.map((item: Location) => ({
               key: item.id,

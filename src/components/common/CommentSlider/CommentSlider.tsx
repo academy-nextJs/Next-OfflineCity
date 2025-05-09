@@ -65,11 +65,11 @@ const CommentsSlider: React.FC = () => {
         >
             {data?.map((comment:dataProps , index:number) => {
                 const diff = Math.abs(index - activeIndex);
-                let size = ' opacity-25 mt-32 space-y-10 ';
+                let size = ' opacity-25 mt-32 space-y-10 dark:bg-zinc-800 dark:text-white ';
 
-                if (index === activeIndex) size = 'space-y-60  ';
+                if (index === activeIndex) size = 'space-y-60 dark:bg-zinc-300 dark:text-black ';
 
-                else if (diff === 1 || diff === data?.length - 1) size = ' mt-16 space-y-40'
+                else if (diff === 1 || diff === data?.length - 1) size = ' mt-16 space-y-40 dark:bg-zinc-700 dark:text-white '
          
 
           return(

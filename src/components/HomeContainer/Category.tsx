@@ -11,7 +11,7 @@ const Category =  () => {
   const [getAllHome, setGetAllHome] = useState<any>([])
 
 const GetAllHome = async () => {
-     const res = await axiosInstance.get("/houses?page=1&limit=10&sort=price&order=ASC")
+     const res = await axiosInstance.get("/houses?page=1&limit=10&sort=rate&order=ASC&search=&location=&propertyType=&transactionType=&minPrice=&maxPrice=&minRent=&maxRent=&minMortgage=&maxMortgage=&minArea=&maxArea=")
      setGetAllHome(res?.data)
 }
 
@@ -24,7 +24,7 @@ useEffect(() => {
  
   return (
     <>
-    <div className='pr-[288px] pt-[72px]'> 
+    <div className='pr-[56px] md:pr-[288px] pt-[72px]'> 
         <BlueButton children="دسته بندی" className='text-[#7575FE] bg-transparent border-1 border-[#7575FE]' />
         <div>
            <div className='pt-4'>

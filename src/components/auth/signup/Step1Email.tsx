@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import AuthHeader from "../AuthHeader";
 import OAuthButtons from "../OAuthButtons";
+import Link from "next/link";
 
 interface Step1EmailProps {
   onNext: () => void;
@@ -99,9 +100,9 @@ export default function Step1Email({ onNext }: Step1EmailProps) {
 
       <p className="text-center text-sm font-yekan mt-4 text-gray-600 dark:text-gray-300">
         حساب کاربری دارید؟{" "}
-        <a href="/Login" className="text-primary font-bold hover:underline">
+        <Link href="/Login" className="text-primary font-bold hover:underline">
           ورود به حساب
-        </a>
+        </Link>
       </p>
     </div>
   );

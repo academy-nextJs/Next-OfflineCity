@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import AuthHeader from "../AuthHeader";
+import OAuthButtons from "../OAuthButtons";
 
 interface Step1EmailProps {
   onNext: () => void;
@@ -23,8 +24,6 @@ export default function Step1Email({ onNext }: Step1EmailProps) {
     setLoading(true);
 
     try {
-      console.log("📤 ارسال ایمیل به API با مقدار:", email);
-
       const res = await fetch(
         "https://delta-project.liara.run/api/auth/start-registration",
         {
@@ -35,7 +34,6 @@ export default function Step1Email({ onNext }: Step1EmailProps) {
       );
 
       const data = await res.json();
-      console.log("📥 پاسخ API:", data);
 
       if (!res.ok) {
         throw new Error(
@@ -69,38 +67,42 @@ export default function Step1Email({ onNext }: Step1EmailProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="space-y-6">
       <AuthHeader
         title="ثبت‌ نام در آلفا"
-        description="برای ثبت‌نام در آلفا می‌توانید با اکانت گوگل یا اپل خود و یا با ارسال کد تأیید به ایمیل خود اقدام کنید."
+        description="برای ثبت‌نام در آلفا می‌توانید با اکانت گوگل یا گیت‌هاب خود و یا با ارسال کد تأیید به ایمیل خود اقدام کنید."
       />
 
-      <label className="block text-sm font-yekan text-gray-700 dark:text-gray-200">
-        ایمیل
-      </label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border p-3 rounded-auth w-full font-yekan dark:bg-dark-100 dark:border-lightGrey-100"
-        placeholder="ایمیل خود را وارد کنید"
-        required
-      />
+      <OAuthButtons />
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="bg-primary hover:bg-primary-dark text-white p-3 rounded-auth w-full font-yekan transition dark:bg-main"
-      >
-        {loading ? "در حال ارسال..." : "ارسال کد تأیید"}
-      </button>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <label className="block text-sm font-yekan text-gray-700 dark:text-gray-200">
+          ایمیل
+        </label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border p-3 rounded-auth w-full font-yekan dark:bg-dark-100 dark:border-lightGrey-100"
+          placeholder="ایمیل خود را وارد کنید"
+          required
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-primary hover:bg-primary-dark text-white p-3 rounded-auth w-full font-yekan transition dark:bg-main"
+        >
+          {loading ? "در حال ارسال..." : "ارسال کد تأیید"}
+        </button>
+      </form>
 
       <p className="text-center text-sm font-yekan mt-4 text-gray-600 dark:text-gray-300">
         حساب کاربری دارید؟{" "}
-        <a href="/login" className="text-primary font-bold hover:underline">
+        <a href="/Login" className="text-primary font-bold hover:underline">
           ورود به حساب
         </a>
       </p>
-    </form>
+    </div>
   );
 }

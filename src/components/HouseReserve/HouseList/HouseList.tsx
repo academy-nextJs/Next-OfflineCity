@@ -22,6 +22,7 @@ const HouseList: FC<MapViewProps> = ({ houses }) => {
   const housesValues = useAppSelector((store) => store.housereserve); 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
+  const [id, setId] = useState()
 
   return (
     <>
@@ -96,6 +97,7 @@ const HouseList: FC<MapViewProps> = ({ houses }) => {
         <div className="grid grid-cols-2 gap-6 pt-2 pl-[14px] pb-8">
           {houses.map((house) => (
             <>
+            <Link href={"/houseReserve/" + house.id}> 
               <div className="rounded-2xl overflow-hidden shdow-md bg-white dark:bg-zinc-800  max-auto dark:border dark:border-zinc-600">
                 <div className="relative rounded-[24px]">
                   {/* <Image src={house.photos[0]} alt={house.title} width={400} height={250} className='w-full h-48 object-cover bg-red-200'/>  */}
@@ -171,6 +173,7 @@ const HouseList: FC<MapViewProps> = ({ houses }) => {
                   </div>
                 </div>
               </div>
+              </Link>
             </>
           ))}
         </div>

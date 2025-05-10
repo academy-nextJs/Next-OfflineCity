@@ -17,7 +17,7 @@ const Comments = () => {
         initial={{opacity: 0 , y: 100}}
         whileInView={{opacity: 1 , y: 0}}
         transition={{duration: 0.6 , ease: "easeOut"}}
-        viewport={{once: false , amount: 1}}
+        viewport={{once: true , amount: 0.5}}
         className='pt-[90px] pb-[109px]'>
          <CommentsSlider />          
         </motion.div>

@@ -81,7 +81,7 @@ const CommentsSlider: React.FC = () => {
                 "transition-all duration-300 rounded-[32px] shadow-lg p-4 flex flex-col justify-between ",
                 size,
                 index === activeIndex
-                  ? "bg-indigo-500 text-white"
+                  ? "bg-indigo-500 text-white "
                   : "bg-[#f9f9f9] text-[#1e1e1e]"
               )}
               dir="rtl"

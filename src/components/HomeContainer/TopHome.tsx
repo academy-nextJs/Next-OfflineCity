@@ -8,7 +8,7 @@ const TopHome = () => {
   const [topHome, setTopHome] = useState<any>()
 
 const GetTopHome = async () => {
-  const res = await axiosInstance.get("/houses?page=1&limit=10&sort=price&order=ASC")
+  const res = await axiosInstance.get("/houses?page=1&limit=10&sort=rate&order=ASC&search=&location=&propertyType=&transactionType=&minPrice=&maxPrice=&minRent=&maxRent=&minMortgage=&maxMortgage=&minArea=&maxArea=")
 
   setTopHome(res?.data)
 }

@@ -100,7 +100,7 @@ const CustomPlugin = ({ showPrice = true , showDiscount = true , data}:CustomPlu
     </motion.div>
       <div className='pt-4'>  
          <p className='font-[600] text-[20px]'>  {item?.title}    </p>
-         <p className='pt-4 flex gap-2'> <div className='w-8 h-8 rounded-[16px] bg-[#f3f3f3] dark:bg-zinc-800 flex items-center justify-center dark: text-zinc-400'> <TbMapSearch size={20} /></div> {item?.address}  </p>
+         <div className='pt-4 flex gap-2'> <div className='w-8 h-8 rounded-[16px] bg-[#f3f3f3] dark:bg-zinc-800 flex items-center justify-center dark: text-zinc-400'> <TbMapSearch size={20} /></div> {item?.address}  </div>
          <div className='pt-4  flex gap-2'>
             <span className='flex gap-2'> <div className='w-8 h-8 rounded-[16px] bg-[#f3f3f3] flex items-center justify-center text-zinc-400 dark:bg-zinc-800 '> <LuBed size={20}/> </div>   {item?.rooms}خواب </span>
             <span className='flex gap-2 pr-5'> <div className='w-8 h-8 rounded-[16px] bg-[#f3f3f3] flex items-center justify-center text-zinc-400 dark:bg-zinc-800 '> <BiBath size={20}/></div>  {item?.bathrooms}حمام </span>

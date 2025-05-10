@@ -51,17 +51,15 @@ const CustomPlugin = ({ showPrice = true , showDiscount = true , data}:CustomPlu
 
   const fromRight = {
   hidden: {opacity: 0 , x: 100},
-  show: {opacity: 1 , x:0 , transition: {duration: 0.6 , ease: 'easeOut'}}
+  show: {opacity: 1 , x:0 , transition: {duration: 0.5 , ease: 'easeOut'}}
   }
-
-
   return (
    <>   
   <motion.div 
    variants={containerVariants}
    initial="hidden"
    whileInView="show"
-   viewport={{once: false , amount: 1}}
+   viewport={{once: true , amount: 0.5}}
   className='flex flex-col items-center lg:flex-row  gap-10 '> 
    {data?.map((item , index) => (   
 

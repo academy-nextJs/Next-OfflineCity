@@ -110,7 +110,7 @@ const ImageTextSlider = ({ slidesPerView, data }: slidesPerViewProps) => {
                       ease: "easeOut",
                       delay: index * 0.2,
                     }}
-                    viewport={{ once: false, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.2 }}
                     style={{
                       position: "relative",
                       textAlign: "center",
@@ -139,7 +139,7 @@ const ImageTextSlider = ({ slidesPerView, data }: slidesPerViewProps) => {
                       ease: "easeOut",
                       delay: index * 0.2,
                     }}
-                    viewport={{ once: false, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.2 }}
                   >
                     <Skeleton className="w-full h-80 rounded-[32px]" />
                   </motion.div>

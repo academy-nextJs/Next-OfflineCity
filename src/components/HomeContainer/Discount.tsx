@@ -21,6 +21,8 @@ const Discount = () => {
     GetDiscountHome();
   }, []);
 
+
+
   return (
     <div className="pt-[104px]">
       <div>

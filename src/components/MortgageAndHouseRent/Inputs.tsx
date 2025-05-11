@@ -174,11 +174,7 @@ const Inputs = () => {
             label: "py-2 font-bold",
           }}
           onChange={(e) => {
-            if (!e.target.value) {
-              dispatch(setTransactionType("rental"));
-            } else {
-              dispatch(setTransactionType(e.target.value));
-            }
+            dispatch(setTransactionType(e.target.value));
           }}
         >
           <SelectItem key="rental">اجاره</SelectItem>

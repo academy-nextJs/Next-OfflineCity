@@ -18,14 +18,10 @@ export default function Step3SetPassword({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const userId = Number(localStorage.getItem("userId"));
+
     if (password !== confirmPassword) {
       toast.error("رمز عبور و تکرار آن مطابقت ندارند.");
-      return;
-    }
-
-    const tempUserId = localStorage.getItem("tempUserId");
-    if (!tempUserId) {
-      toast.error("شناسه موقت یافت نشد.");
       return;
     }
 
@@ -36,7 +32,7 @@ export default function Step3SetPassword({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            tempUserId,
+            userId,
             password,
             phoneNumber,
           }),
@@ -44,14 +40,14 @@ export default function Step3SetPassword({
       );
 
       const data = await res.json();
-      if (!res.ok)
+      if (!res.ok) {
         throw new Error(data.message || "ثبت اطلاعات نهایی با مشکل مواجه شد.");
-
+      }
       toast.success("ثبت‌ نام با موفقیت انجام شد!");
       localStorage.removeItem("tempUserId");
-
       onComplete();
-    } catch {
+    } catch (error) {
+      console.log(error);
       toast.error("مشکلی در ثبت‌ نام نهایی پیش آمد.");
     }
   };

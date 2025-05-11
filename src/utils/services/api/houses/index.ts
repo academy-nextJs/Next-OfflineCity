@@ -2,12 +2,12 @@ import axiosInstance from "../../interceptor/axios";
 
 export const getAllHouses = (
   page: number,
-  sort: string,
   order: string,
+  transactionType: string,
+  sort: string,
+  propertyType: string,
   search: string,
   location: string,
-  propertyType: string,
-  transactionType: string,
   minPrice?: string,
   maxPrice?: string,
   minRent?: string,
@@ -18,17 +18,19 @@ export const getAllHouses = (
   maxArea?: string
 ) =>
   axiosInstance.get(
-    `/houses?page=${page}&limit=10&sort=${sort}&order=${order}${
-      search ? `&search=${search}` : ""
-    }${location ? `&location=${location}` : ""}${
+    `/houses?page=${page}&limit=10${order ? `&order=${order}` : ""}${
+      transactionType ? `&transactionType=${transactionType}` : ""
+    }${sort ? `&sort=${sort}` : ""}${
       propertyType ? `&propertyType=${propertyType}` : ""
-    }${transactionType ? `&transactionType=${transactionType}` : ""}${
-      minPrice ? `&minPrice=${minPrice}` : ""
-    }${maxPrice ? `&maxPrice=${maxPrice}` : ""}${
-      minRent ? `&minRent=${minRent}` : ""
-    }${maxRent ? `&maxRent=${maxRent}` : ""}${
-      minMortgage ? `&minMortgage=${minMortgage}` : ""
-    }${maxMortgage ? `&maxMortgage=${maxMortgage}` : ""}${
-      minArea ? `&minArea=${minArea}` : ""
-    }${maxArea ? `&maxArea=${maxArea}` : ""}`
+    }${search ? `&search=${search}` : ""}${
+      location ? `&location=${location}` : ""
+    }${minPrice ? `&minPrice=${minPrice}` : ""}${
+      maxPrice ? `&maxPrice=${maxPrice}` : ""
+    }${minRent ? `&minRent=${minRent}` : ""}${
+      maxRent ? `&maxRent=${maxRent}` : ""
+    }${minMortgage ? `&minMortgage=${minMortgage}` : ""}${
+      maxMortgage ? `&maxMortgage=${maxMortgage}` : ""
+    }${minArea ? `&minArea=${minArea}` : ""}${
+      maxArea ? `&maxArea=${maxArea}` : ""
+    }`
   );

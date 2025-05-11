@@ -7,7 +7,7 @@ const initialState = {
   search: "",
   location: "",
   propertyType: "",
-  transactionType: "rental",
+  transactionType: "",
   minPrice: "",
   maxPrice: "",
   minRent: "",

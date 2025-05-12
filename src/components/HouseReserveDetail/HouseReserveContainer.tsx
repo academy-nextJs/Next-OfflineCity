@@ -1,6 +1,7 @@
 import React from "react";
 import HouseButton from "../common/HouseButton/HouseButton";
 import HouseInformation from "../common/HouseInformation/HouseInformation";
+import { HouseReserveInput } from "./HouseReserveInput";
 
 const HouseReserveContainer = () => {
   return (
@@ -16,7 +17,7 @@ const HouseReserveContainer = () => {
             <HouseInformation />
         </div>
         <div>
-            <span> همین حالا رزرو کنید  </span>
+            <HouseReserveInput />
         </div>
       </div>
       <div></div>

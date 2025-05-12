@@ -2,6 +2,9 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
+import type { JWT } from "next-auth/jwt";
+import type { Session } from "next-auth";
+import type { User } from "next-auth";
 
 const handler = NextAuth({
   providers: [
@@ -30,24 +33,25 @@ const handler = NextAuth({
           try {
             const data = JSON.parse(rawText);
 
-            if (!res.ok || !data || !data.token) {
-              console.error("Login failed (bad response):", data);
+            if (!res.ok || !data?.accessToken) {
+              console.error("Login failed:", data);
               return null;
             }
 
             return {
               id: data.id,
-              name: data.fullName,
+              name: data.name,
               email: data.email,
-              token: data.token,
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken,
             };
           } catch (jsonErr) {
-            console.error("Failed to parse JSON:", jsonErr);
-            console.error("Raw response text:", rawText);
+            console.error("JSON Parse Error:", jsonErr);
+            console.error("Raw response:", rawText);
             return null;
           }
         } catch (err) {
-          console.error("Network or server error:", err);
+          console.error("Network Error:", err);
           return null;
         }
       },
@@ -68,15 +72,26 @@ const handler = NextAuth({
   },
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user?: User }): Promise<JWT> {
       if (user) {
         token.user = user;
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
       }
       return token;
     },
-    async session({ session, token }) {
+
+    async session({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: JWT;
+    }): Promise<Session> {
       if (token.user) {
         session.user = token.user;
+        session.accessToken = token.accessToken;
+        session.refreshToken = token.refreshToken;
       }
       return session;
     },

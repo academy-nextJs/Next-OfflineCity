@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import AuthHeader from "../AuthHeader";
+import axios from "axios";
 
 interface Step2VerifyCodeProps {
   onNext: () => void;
@@ -44,35 +45,30 @@ export default function Step2VerifyCode({ onNext }: Step2VerifyCodeProps) {
     e.preventDefault();
 
     const code = codeDigits.join("");
+
     if (code.length < 6) {
-      toast.error("کد را کامل وارد کنید.");
-      return;
+      return toast.error("کد را کامل وارد کنید.");
     }
 
     const tempUserId = localStorage.getItem("tempUserId");
+
     if (!tempUserId) {
-      toast.error("شناسه موقت یافت نشد.");
-      return;
+      return toast.error("شناسه موقت یافت نشد.");
     }
 
-    try {
-      const res = await fetch(
-        "https://delta-project.liara.run/api/auth/verify-email",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tempUserId, code }),
-        }
-      );
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "کد اشتباه است.");
-
-      toast.success("کد تأیید شد.");
-      onNext();
-    } catch {
-      toast.error("مشکلی پیش آمد.");
-    }
+    axios
+      .post("https://delta-project.liara.run/api/auth/verify-email", {
+        tempUserId: Number(tempUserId),
+        verificationCode: code,
+      })
+      .then((res) => {
+        localStorage.setItem("userId", res.data.userId);
+        onNext();
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("مشکلی پیش آمد.");
+      });
   };
 
   return (

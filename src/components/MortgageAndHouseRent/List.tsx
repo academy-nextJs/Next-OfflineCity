@@ -39,12 +39,12 @@ const MortgageAndHouseRentList = () => {
     queryFn: () =>
       getAllHouses(
         page,
-        sort,
         order,
+        transactionType,
+        sort,
+        propertyType,
         search,
         location,
-        propertyType,
-        transactionType,
         minPrice,
         maxPrice,
         minRent,

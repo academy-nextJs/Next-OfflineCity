@@ -13,19 +13,15 @@ import React, { FC, useEffect, useState } from "react";
 const page = () => {
 
   const images = [
-    "/assets/houseReserve/house.png",
-    "/assets/houseReserve/house1.jpg",
-    "/assets/houseReserve/house2.jpg",
-    "/assets/houseReserve/house3.jpg",
-    "/assets/houseReserve/house4.jpg",
-    "/assets/houseReserve/house5.jpg",
-    "/assets/houseReserve/house6.jpg",
-    "/assets/houseReserve/house.png",
-    "/assets/houseReserve/house.png",
-    "/assets/houseReserve/house1.jpg",
-    "/assets/houseReserve/house2.jpg",
-    "/assets/houseReserve/house3.jpg",
-    "/assets/houseReserve/house4.jpg",
+    "/assets/houseReserve/house7.jpg",
+    "/assets/houseReserve/house9.jpg",
+    "/assets/houseReserve/house10.jpg",
+    "/assets/houseReserve/house11.jpg",
+    "/assets/houseReserve/house12.jpg",
+    "/assets/houseReserve/house13.jpg",
+    "/assets/houseReserve/house14.jpg",
+    "/assets/houseReserve/house15.jpg",
+    "/assets/houseReserve/house16.png",
   ];
 
   const {

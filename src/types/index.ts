@@ -38,3 +38,40 @@ export interface HouseProps {
   sellerName: string;
   caption: string;
 }
+
+
+export interface CommentsProps {
+  id: number;
+  house_id:number;
+  user_id:number;
+  title:string;
+  caption:string;
+  rating:number;
+  created_at:number;
+  parent_comment_id:number;
+  user: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    fullName:string;
+    profilePicture: null;
+};
+parent_comment: {
+  id: number;
+  house_id:number;
+  user_id: number;
+  title: string;
+  caption: string;
+  rating: number;
+  created_at: number;
+  parent_comment_id: null;
+  user: {
+      id: number;
+      firstName: string;
+      lastName: string;
+      fullName: string;
+      profilePicture: null;
+  }
+}
+
+}

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 import { motion } from "framer-motion";
+import { HouseProps } from "@/types";
 
 const itemsVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -13,7 +14,11 @@ const itemsVariant = {
   }),
 };
 
-const HouseInformation = () => {
+interface reserveDeatailProps {
+  reserveDeatail:HouseProps
+}
+
+const HouseInformation:FC<reserveDeatailProps> = ({reserveDeatail}) => {
   return (
     <div className="hidden md:grid md:grid-cols-5 gap-12 pt-6">
       <motion.div
@@ -24,7 +29,7 @@ const HouseInformation = () => {
         className="border-r border-[#7575fefe] pr-2 mt-8 "
       >
         <p className="text-[#7575fefe]"> تعداد اتاق </p>
-        <p> 4 اتاق </p>
+        <p> {reserveDeatail?.rooms}</p>
       </motion.div>
       <motion.div
         custom={1}
@@ -74,7 +79,7 @@ const HouseInformation = () => {
         className="border-r border-[#7575fefe] pr-2 mt-8 "
       >
         <p className="text-[#7575fefe]"> پارگینگ </p>
-        <p> دارد </p>
+        <p>  {reserveDeatail?.parking}</p>
       </motion.div>
       <motion.div
         custom={6}
@@ -84,7 +89,7 @@ const HouseInformation = () => {
         className="border-r border-[#7575fefe] pr-2 mt-8 "
       >
         <p className="text-[#7575fefe]"> اسانسور </p>
-        <p> دارد </p>
+        <p> دارد  </p>
       </motion.div>
       <motion.div
         custom={7}

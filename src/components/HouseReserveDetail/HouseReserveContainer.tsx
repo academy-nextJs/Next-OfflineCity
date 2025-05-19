@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import HouseButton from "../common/HouseButton/HouseButton";
 import HouseInformation from "../common/HouseInformation/HouseInformation";
 import { HouseReserveInput } from "./HouseReserveInput";
@@ -13,6 +13,8 @@ import { GoPlus } from "react-icons/go";
 import { AnimatePresence, motion } from "framer-motion";
 import CommentsMobileModal from "../common/CommentsModal/CommentsModal";
 import CreateCommentsModal from "../common/CreateComments/CreateCommentsModal";
+import HouseFormAi from "../common/HouseFormAi/HouseFormAi";
+import { HouseProps } from "@/types";
 
 const containerVarients = {
   hidden: {},
@@ -23,16 +25,22 @@ const containerVarients = {
   },
 };
 
-const HouseReserveContainer = () => {
+interface reserveDeatailtype {
+  reserveDeatail: HouseProps
+}
+
+
+
+const HouseReserveContainer:FC<reserveDeatailtype> = ({reserveDeatail}) => {
   const [ShowComments, setShowComments] = useState<boolean>(false);
   const [animate, setAnimate] = useState<"hidden" | "visible">("hidden");
 
   const { data: Comments } = useQuery({
     queryKey: ["comments"],
-    queryFn: () => axiosInstance.get("/houses/5/comments?page=1&limit=10"),
+    queryFn: () => axiosInstance.get(`/houses/${reserveDeatail?.id}/comments?page=1&limit=10`),
   });
 
-  console.log(Comments, "commentsdata");
+  console.log("comments22222222222222222" , Comments)
 
   const [discountHouse, setDiscountHouse] = useState<any>();
 
@@ -49,6 +57,7 @@ const HouseReserveContainer = () => {
     setAnimate("visible");
   }, []);
 
+console.log("reserveDeatail111" , reserveDeatail)
   return (
     <>
       <div className="grid grid-cols-2 gap-[113px]">
@@ -61,14 +70,19 @@ const HouseReserveContainer = () => {
           </div>
           <div>
             <HouseInformationMobile />
-            <HouseInformation />
+            <HouseInformation reserveDeatail={reserveDeatail} />
           </div>
           <div>
             <HouseReserveInput />
           </div>
         </div>
         <div>
+          <div></div>
+
           <div>
+            <div>
+              <HouseFormAi />
+            </div>
             <HouseAbout />
           </div>
 
@@ -85,7 +99,10 @@ const HouseReserveContainer = () => {
                   {" "}
                   <GoPlus />{" "}
                 </span>{" "}
-                <button className="text-[#7575fefe]">     <CreateCommentsModal title="نظر شما" /> </button>
+                <button className="text-[#7575fefe]">
+                  {" "}
+                  <CreateCommentsModal title="نظر شما" />{" "}
+                </button>
               </div>
             </div>
             <div>
@@ -98,9 +115,13 @@ const HouseReserveContainer = () => {
                   exit="hidden"
                   className="mt-4 "
                 >
-                  {Comments?.data.filter((e:any) => e.rating > 4.3).map((Comments: any) =>
-                    ShowComments ? <DetailComments Commets={Comments} /> : null
-                  )}
+                  {Comments?.data
+                    .filter((e: any) => e.rating > 4.3)
+                    .map((Comments: any) =>
+                      ShowComments ? (
+                        <DetailComments Commets={Comments} />
+                      ) : null
+                    )}
                 </motion.ul>
               </AnimatePresence>
             </div>

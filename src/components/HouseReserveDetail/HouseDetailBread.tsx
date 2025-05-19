@@ -7,19 +7,16 @@ export default function HouseDetailBread() {
   return (
     <Breadcrumbs underline="active" onAction={(key) => setCurrentPage(String(key))}>
       <BreadcrumbItem key="home" isCurrent={currentPage === "home"}>
-        Home
+        خانه 
       </BreadcrumbItem>
       <BreadcrumbItem key="music" isCurrent={currentPage === "music"}>
-        Music
+        رزرو هتل
       </BreadcrumbItem>
       <BreadcrumbItem key="artist" isCurrent={currentPage === "artist"}>
-        Artist
+        رزرو هتل رشت
       </BreadcrumbItem>
       <BreadcrumbItem key="album" isCurrent={currentPage === "album"}>
-        Album
-      </BreadcrumbItem>
-      <BreadcrumbItem key="song" isCurrent={currentPage === "song"}>
-        Song
+        رزو هتل رشت سرورایان
       </BreadcrumbItem>
     </Breadcrumbs>
   );

@@ -12,6 +12,7 @@ import { HouseProps } from "@/types";
 import { setHouseSearch } from "@/redux/slices/houseReserve";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface MapViewProps {
   houses: HouseProps[];
@@ -29,7 +30,12 @@ const HouseList: FC<MapViewProps> = ({ houses }) => {
         <div className="w-full pt-[55px] ">
           <BreadCrumbsComponents />
         </div>
-        <div className="flex gap-4 pt-1">
+        <motion.div
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="flex gap-4 pt-1"
+        >
           <HouseSearchModal />
           <Input
             defaultValue={housesValues.search}
@@ -92,12 +98,26 @@ const HouseList: FC<MapViewProps> = ({ houses }) => {
               </div>
             }
           />
-        </div>
+        </motion.div>
         <div className="grid grid-cols-2 gap-6 pt-2 pl-[14px] pb-8">
           {houses.map((house) => (
             <>
               <div>
-                <div className="rounded-2xl overflow-hidden shdow-md bg-white dark:bg-zinc-800  max-auto dark:border dark:border-zinc-600">
+                <motion.div
+                  whileHover={{
+                    scale: 1.03,
+                    rotate: 1,
+                    boxShadow: "0  10px  30px rgba(0 , 0 , 0 , 0.2)",
+                    backgroundColor: "#7575fefe",
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                    mass: 0.8,
+                  }}
+                  className="rounded-2xl overflow-hidden shdow-md  dark:bg-zinc-800  max-auto dark:border dark:border-zinc-600"
+                >
                   <div className="relative rounded-[24px]">
                     {/* <Image src={house.photos[0]} alt={house.title} width={400} height={250} className='w-full h-48 object-cover bg-red-200'/>  */}
                     <Link href={"/houseReserve/" + house.id}>
@@ -143,7 +163,7 @@ const HouseList: FC<MapViewProps> = ({ houses }) => {
                     </div>
                   </div>
 
-                  <div className="p-3 space-y-1 text-sm text-gray-800 dark:text-gray-200">
+                  <div className="p-3 space-y-1 text-sm text-gray-800 dark:text-gray-200 ">
                     <h3 className="font-bold text-[18px] pt-4">
                       {" "}
                       {house.title}{" "}
@@ -179,7 +199,7 @@ const HouseList: FC<MapViewProps> = ({ houses }) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </>
           ))}

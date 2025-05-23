@@ -52,9 +52,9 @@ const ImageSlider: FC<Photos> = ({ photos }) => {
           </Swiper>
         </div>
 
-        <div className="hidden [direction:ltr] xs:grid gap-4 grid-cols-1 sm:grid-cols-2">
-          {photos.slice(0, 3).map((photo) => (
-            <div>
+        <div className="hidden [direction:ltr] xs:grid gap-4 grid-cols-1 sm:grid-cols-2 sm:grid-rows-2">
+          {photos.slice(0, 3).map((photo, index) => (
+            <div key={index}>
               <Image
                 src={photo}
                 classNames={{ img: "h-full", wrapper: "h-full" }}

@@ -105,6 +105,12 @@ const ImageTextSlider = ({ slidesPerView, data }: slidesPerViewProps) => {
                     key={index}
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }}
+                    whileHover={{
+                      scale: 1.03,
+                      rotate: 1,
+                      boxShadow: "0  10px  30px rgba(0 , 0 , 0 , 0.2)",
+                      radius: "32px",
+                    }}
                     transition={{
                       duration: 0.6,
                       ease: "easeOut",
@@ -134,6 +140,11 @@ const ImageTextSlider = ({ slidesPerView, data }: slidesPerViewProps) => {
                     key={index}
                     initial={{ opacity: 0, x: -200 }}
                     whileInView={{ opacity: 1, x: 0 }}
+                    whileHover={{
+                      scale: 1.03,
+                      rotate: 1.2,
+                      radius: "32px",
+                    }}
                     transition={{
                       duration: 0.6,
                       ease: "easeOut",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
@@ -11,6 +11,8 @@ import { LuBed } from "react-icons/lu";
 import { BiBath } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { TbMapSearch } from "react-icons/tb";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 type Slide = {
   content: React.ReactNode;
@@ -38,6 +40,9 @@ const CustomPlugin = ({
   showDiscount = true,
   data,
 }: CustomPluginProps) => {
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+
   const containerVariants = {
     hidden: {},
     show: {
@@ -58,7 +63,7 @@ const CustomPlugin = ({
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.5 }}
-        className="flex flex-col items-center lg:flex-row  gap-10 "
+        className="flex flex-col items-center lg:flex-row  gap-10  "
       >
         {data?.map((item, index) => (
           <motion.div
@@ -68,8 +73,13 @@ const CustomPlugin = ({
               boxShadow: "0  10px  30px rgba(0 , 0 , 0 , 0.2)",
               backgroundColor: "#7575fefe",
             }}
-            transition={{ type: "spring", stiffness: 100 , damping: 15 , mass: 0.8 }}
-            className="rounded-3xl"
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              damping: 15,
+              mass: 0.8,
+            }}
+            className="rounded-3xl group"
           >
             <motion.div
               variants={fromRight}
@@ -83,7 +93,20 @@ const CustomPlugin = ({
                   disableOnInteraction: false,
                 }}
                 pagination={{ clickable: true }}
-                navigation
+                navigation={{
+                  prevEl: prevRef.current,
+                  nextEl: nextRef.current,
+                }}
+                onBeforeInit={(swiper) => {
+                  const nav = swiper.params.navigation;
+                  if (
+                       nav &&
+                    typeof nav!== "boolean"
+                  ) {
+                    nav.prevEl = prevRef.current;
+                    nav.nextEl = nextRef.current;
+                  }
+                }}
                 effect="fade"
                 className="h-full"
               >
@@ -98,6 +121,18 @@ const CustomPlugin = ({
                     )}
                   </SwiperSlide>
                 ))}
+                <div
+                 ref={prevRef}
+                 className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-3 z-10 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <MdOutlineKeyboardArrowLeft size={22}/>
+                </div>
+                <div
+                 ref={nextRef}
+                 className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-3 z-10 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <MdOutlineKeyboardArrowRight size={22}/>
+                </div>                
               </Swiper>
             </motion.div>
             <div className="pt-4 rounded-md">
@@ -108,7 +143,7 @@ const CustomPlugin = ({
                   {" "}
                   <TbMapSearch size={20} />
                 </div>{" "}
-                   <div className=" truncate"> {item?.address}{" "} </div>  
+                <div className=" truncate"> {item?.address} </div>
               </div>
               <div className="pt-4  flex gap-2">
                 <span className="flex gap-2">

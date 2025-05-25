@@ -62,66 +62,65 @@ export default function App() {
     getPriceRange(""),
   ];
 
-  const buttonRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLDivElement>(null);
 
-  const x = useMotionValue(0)
+  const x = useMotionValue(0);
 
-  const y = useMotionValue(0)
+  const y = useMotionValue(0);
 
-  const springX = useSpring(x , {stiffness: 300 , damping:20});
-  const springY = useSpring(y , {stiffness: 300 , damping:20});
+  const springX = useSpring(x, { stiffness: 300, damping: 20 });
+  const springY = useSpring(y, { stiffness: 300, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = buttonRef.current?.getBoundingClientRect()
+    const rect = buttonRef.current?.getBoundingClientRect();
     if (!rect) return;
 
-    const mouseX = e.clientX
-    const mouseY = e.clientY
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
 
     const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;  
+    const centerY = rect.top + rect.height / 2;
 
     const offestX = mouseX - centerX;
     const offestY = mouseY - centerY;
-    
-    const distance = Math.sqrt(offestX ** 2 + offestY ** 2)
+
+    const distance = Math.sqrt(offestX ** 2 + offestY ** 2);
 
     if (distance < 150) {
       x.set(offestX * 0.6);
-      y.set(offestY * 0.6)
+      y.set(offestY * 0.6);
     }
-  }
+  };
 
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
-  }
+  };
 
   return (
     <>
-    <div onMouseMove={handleMouseMove}
-    onMouseLeave={handleMouseLeave}>
-      <motion.div
-       ref={buttonRef}
-       style={{x: springX , y: springY}}
-       className="sticky top-0"
-       initial={{y: -100 , opacity: 0}}
-       animate={{y: 0 , opacity: 1}}
-       transition={{duration : 0.5}}
-       drag
-       dragConstraints={{left: -100 , right: 100 , top: -100 , bottom: 100}}
-       whileDrag={{scale: 1.05 , rotate: 2}}
-      >
-        <Button
-          color="primary"
-          className="rounded-[100px]"
-          onPress={onOpen}
-          size="lg"
+      <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+        <motion.div
+          ref={buttonRef}
+          style={{ x: springX, y: springY }}
+          className="sticky top-0"
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          drag
+          dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
+          whileDrag={{ scale: 1.05, rotate: 2 }}
         >
-          {" "}
-          فیلتر ها{" "}
-        </Button>
-      </motion.div> 
+          <Button
+            color="primary"
+            className="rounded-[100px]"
+            onPress={onOpen}
+            size="lg"
+          >
+            {" "}
+            فیلتر ها{" "}
+          </Button>
+        </motion.div>
       </div>
       <Modal
         isOpen={isOpen}

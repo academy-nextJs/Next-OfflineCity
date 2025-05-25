@@ -1,67 +1,102 @@
-'use client'
+"use client";
 import { Avatar, AvatarGroup } from "@heroui/avatar";
 import { Image } from "@heroui/image";
 import SearchModals from "../common/SearchModals/SearchModals";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/utils/services/interceptor/axios";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 
 const Header = () => {
-  const [IsOpen, setIsOpen] = useState(false)
+  const [IsOpen, setIsOpen] = useState(false);
 
-  const [data, setData] = useState<any>()
-  const [filter, setFilters] = useState<any>()
+  const [data, setData] = useState<any>();
+  const [filter, setFilters] = useState<any>();
+  const [spining, setSpining] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setSpining(true);
+    setTimeout(() => {
+      setSpining(false);
+
+      openModal();
+    }, 700);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   const GetTopHome = async () => {
-    const res = await axiosInstance.get("/houses?page=1&limit=10&sort=price&order=ASC")
-  
-    setData(res?.data)
-  }
-  
+    const res = await axiosInstance.get(
+      "/houses?page=1&limit=10&sort=price&order=ASC"
+    );
+
+    setData(res?.data);
+  };
+
   useEffect(() => {
-  
-    GetTopHome()
-  
-  }, [])
+    GetTopHome();
+  }, []);
 
   const containerVariants = {
     hidden: {},
     show: {
       transition: {
         staggerChildren: 0.2,
-      }
-    }
-  }
+      },
+    },
+  };
 
   const itemVarients = {
-    hidden: { opacity: 0 , y: -50 },
-    show: { opacity: 1 , y: 0 , transition: {duration: 0.6 , ease: "easeOut"}},
-  }
-  
-  return (
-    <motion.div  
-     variants={containerVariants}
-     initial="hidden"
-     whileInView="show"
-     viewport={{once: false , amount: 0.2}}
+    hidden: { opacity: 0, y: -50 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
 
-     className="flex flex-col items-center lg:items-stretch lg:flex-row lg:justify-between px-14 my-8 gap-8 ">
+  return (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: false, amount: 0.2 }}
+      className="flex flex-col items-center lg:items-stretch lg:flex-row lg:justify-between px-14 my-8 gap-8 "
+    >
       <div className="flex justify-center lg:justify-start items-center w-full lg:w-1/2">
         <motion.div variants={itemVarients} className="relative">
+          <motion.div
+           whileHover={{x: -5 , y: -5,  scale: 1.3}}
+           transition={{type: 'spring' , stiffness: 100}}
+
+          >
           <Image src="/images/home/image 1.png" />
-          <button onClick={() => setIsOpen (true)} className="hidden lg:flex flex-col bg-main text-white text-[10px] xl:text-[12px] w-20 h-20 xl:w-24 xl:h-24 rounded-full  justify-center items-center border-4 border-white absolute top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2 z-10">
+        
+          <motion.button
+            onClick={handleClick}
+            animate={spining ? { rotate: 360 } : { rotate: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="hidden lg:flex flex-col bg-main text-white text-[10px] xl:text-[12px] w-20 h-20 xl:w-24 xl:h-24 rounded-full  justify-center items-center border-4 border-white absolute top-1/2 left-[-40px] transform -translate-x-1/2 -translate-y-1/2 z-10"
+          >
             <Image
               className="w-6 h-6 xl:w-8 xl:h-8"
               src="/images/home/Frame.png"
             />
             جستجو سریع
-            <SearchModals isOpen={IsOpen} onClose={() => setIsOpen(false)} onFilter={(data) =>{setFilters(data)}}/>
-          </button>
+            <SearchModals
+              isOpen={IsOpen}
+              onClose={() => setIsOpen(false)}
+              onFilter={(data) => {
+                setFilters(data);
+              }}
+            />
+          </motion.button>
+          </motion.div>
         </motion.div>
       </div>
 
       <div className="flex flex-col gap-8 pt-4 w-full sm:w-1/2">
-        <motion.div variants={itemVarients} className="flex flex-col items-center xl:items-start gap-2 xl:gap-6 h-1/2">
+        <motion.div
+          variants={itemVarients}
+          className="flex flex-col items-center xl:items-start gap-2 xl:gap-6 h-1/2"
+        >
           <h1 className="text-[20px] xs:text-[24px] sm:text-[28px] xl:text-[40px] font-[700] xl:max-w-[335px] text-center xl:text-start sm:text-nowrap xl:text-wrap">
             خانه‌ای که می‌خوای، جایی که می‌خوای
           </h1>
@@ -74,7 +109,16 @@ const Header = () => {
         </motion.div>
 
         <div className="hidden xs:flex flex-col items-center lg:flex-row lg:justify-between lg:items-end gap-5 h-1/2">
-          <motion.div variants={itemVarients} className="flex flex-col gap-2 justify-center items-center lg:items-start xl:h-[210px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100 dark:bg-dark-100 dark:border">
+          <motion.div
+            variants={itemVarients}
+            whileHover={{
+              scale: 1.03,
+              rotate: 1,
+              boxShadow: "0  10px  30px rgba(0 , 0 , 0 , 0.2)",
+            }}
+            transition={{ type: "spring", stiffness: 100 , damping: 15 , mass: 0.8 }}
+            className="transition-colors duration-300 hover:bg-[#dfdfff] dark:hover:bg-[#dfdfff] flex flex-col gap-2 justify-center items-center lg:items-start xl:h-[210px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100 dark:bg-dark-100 dark:border"
+          >
             <span className="font-[700]">بیش از</span>
             <span className="text-[28px] xl:text-[40px] font-[700]">
               ۷۰۰۰ +
@@ -93,7 +137,16 @@ const Header = () => {
             </span>
           </motion.div>
 
-          <motion.div variants={itemVarients} className="flex flex-col items-center lg:items-start gap-2 lg:h-[250px] xl:h-[287px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-[#DFDFFF] dark:bg-dark-100 dark:border">
+          <motion.div
+            variants={itemVarients}
+            whileHover={{
+              scale: 1.03,
+              rotate: 1,
+              boxShadow: "0  10px  30px rgba(0 , 0 , 0 , 0.2)",
+            }}
+            transition={{ type: "spring", stiffness: 100 , damping: 15 , mass: 0.8 }}
+            className="transition-colors duration-300 hover:bg-[#dfdfff] dark:hover:bg-[#dfdfff] flex flex-col items-center lg:items-start gap-2 lg:h-[250px] xl:h-[287px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100 dark:bg-dark-100 dark:border"
+          >
             <span className="font-[700]">بیش از</span>
             <span className="text-[28px] xl:text-[40px] font-[700] truncate">
               ۸۵۰۰ +
@@ -103,7 +156,16 @@ const Header = () => {
             </span>
           </motion.div>
 
-          <motion.div variants={itemVarients} className="flex flex-col items-center lg:items-start gap-2 lg:h-[300px] xl:h-[360px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100 dark:bg-dark-100 dark:border">
+          <motion.div
+            variants={itemVarients}
+            whileHover={{
+              scale: 1.03,
+              rotate: 1,
+              boxShadow: "0  10px  30px rgba(0 , 0 , 0 , 0.2)",
+            }}
+            transition={{ type: "spring", stiffness: 100 , damping: 15 , mass: 0.8 }}
+            className="transition-colors duration-300 hover:bg-[#dfdfff] dark:hover:bg-[#dfdfff] flex flex-col items-center lg:items-start gap-2 lg:h-[300px] xl:h-[360px] w-full lg:max-w-[200px] rounded-[32px] px-5 py-3 bg-lightGrey-100 dark:bg-dark-100 dark:border"
+          >
             <span className="font-[700]">بیش از </span>
             <span className="text-[28px] xl:text-[40px] font-[700] truncate">
               ۹۰۰۰ +

@@ -8,6 +8,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      blur: {
+       '4xl' : '40px',
+       '5xl' : '50px',
+       '6xl' :  '60px',
+       'max' : '100px'
+      },
       colors: {
         main: "#7575FE",
         lightGrey: {

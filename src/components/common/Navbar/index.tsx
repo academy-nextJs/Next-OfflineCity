@@ -133,7 +133,7 @@ export default function MyNavbar() {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarMenu>
+      {/* <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
@@ -151,7 +151,7 @@ export default function MyNavbar() {
             </Link>
           </NavbarMenuItem>
         ))}
-      </NavbarMenu>
+      </NavbarMenu> */}
     </Navbar>
   );
 }

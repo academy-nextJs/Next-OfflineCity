@@ -3,10 +3,6 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { toggleTheme } from "@/redux/slices/global";
 import {
-  Accordion,
-  AccordionItem,
-  Card,
-  CardBody,
   Navbar,
   NavbarContent,
   NavbarItem,
@@ -18,12 +14,11 @@ import {
 import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FiChevronsRight } from "react-icons/fi";
 import { RxBell } from "react-icons/rx";
 import { Home, LucideIcon } from "lucide-react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { BsFillCaretLeftFill } from "react-icons/bs"
 
 type Nvlink = {
   label: string;
@@ -85,7 +80,11 @@ const DashboardHeader = () => {
     >
       <NavbarContent justify="start" className="hidden lg:flex">
         <NavbarItem className="flex gap-2">
-          داشبورد <FiChevronsRight className="mt-1" />
+          داشبورد         <div className="flex items-center gap-1 pl-5">
+          <BsFillCaretLeftFill size={14} className="opacity-30" />
+          <BsFillCaretLeftFill size={18} className="opacity-60" />
+          <BsFillCaretLeftFill size={23} className="opacity-100" />
+        </div>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent className="lg:hidden" justify="start">

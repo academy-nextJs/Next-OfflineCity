@@ -41,7 +41,7 @@ const DashboardNvbar = () => {
   const pathName = usePathname();
 
   return (
-    <div className="bg-[#ffff] dark:bg-zinc-900 rounded-xl px-[19px] pt-[30px] lg:block hidden">
+    <div className="bg-[#ffff] dark:bg-zinc-900 rounded-xl px-[19px] pt-[30px] lg:block hidden h-[70%]">
       <div className="flex justify-between">
         <h1 className="font-black size-8"> الفا </h1>
         <span className="pr-[162px]">
@@ -57,10 +57,10 @@ const DashboardNvbar = () => {
             <Link
               key={href}
               href={href}
-              className={clsx("relative group overflow-hidden px-4 py-2  pt-4 text-sm transition-colors flex gap-2 rounded-md" , isActive ? 'bg-blue-600' : '')}
+              className={clsx("relative group overflow-hidden px-4 py-2  pt-4 text-sm transition-colors flex gap-2 rounded-md" , isActive ? 'bg-[#8cff45]' : '')}
             >
               <motion.div
-                className="absolute inset-0 bg-blue-500 z-0 origin-right scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out "
+                className="absolute inset-0 bg-[#8cff45] z-0 origin-right scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out "
           
                 
               />
@@ -76,8 +76,8 @@ const DashboardNvbar = () => {
                 size={18}
                 className={clsx(
                   isActive
-                    ? "dark:text-white text-black z-10"
-                    : "text-gray-500 group-hover:text-lime-400 z-10"
+                    ? "dark:text-white text-black z-10 "
+                    : "text-gray-500 group-hover:text-black  z-10"
                 )}
               />
 
@@ -86,7 +86,7 @@ const DashboardNvbar = () => {
                   "transition-colors duration-300 z-10",
                   isActive
                     ? "dark:text-white text-black "
-                    : "text-gray-500 group-hover:text-lime-400"
+                    : "text-gray-500 group-hover:text-black"
                 )}
               >
                 {label}
